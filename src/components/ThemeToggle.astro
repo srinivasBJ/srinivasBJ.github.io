@@ -6,16 +6,16 @@
 <button
   id="theme-toggle"
   type="button"
-  class="p-2 rounded-lg hover:bg-[var(--color-surface-hover)] transition-colors duration-200"
+  class="p-1.5 rounded-lg hover:bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors duration-200 cursor-pointer"
   aria-label="Toggle dark mode"
 >
   <!-- Sun icon (shown in dark mode) -->
   <svg
-    class="w-5 h-5 text-[var(--color-text-secondary)] hidden dark:block"
+    class="w-4 h-4 hidden dark:block"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
-    stroke-width="2"
+    stroke-width="2.5"
   >
     <path
       stroke-linecap="round"
@@ -26,11 +26,11 @@
 
   <!-- Moon icon (shown in light mode) -->
   <svg
-    class="w-5 h-5 text-[var(--color-text-secondary)] block dark:hidden"
+    class="w-4 h-4 block dark:hidden"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
-    stroke-width="2"
+    stroke-width="2.5"
   >
     <path
       stroke-linecap="round"
@@ -40,43 +40,27 @@
   </svg>
 </button>
 
-<script is:inline>
-  (function () {
-    const html = document.documentElement;
+<script>
+  // Globally delegated click handler bound to document
+  // This listener persists across View Transition swaps
+  const win = window as any;
+  if (!win.__themeToggleInitialized) {
+    win.__themeToggleInitialized = true;
 
-    function getInitialTheme() {
-      const stored = localStorage.getItem('theme');
-      if (stored === 'dark' || stored === 'light') return stored;
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-
-    function applyTheme(theme) {
-      if (theme === 'dark') {
-        html.classList.add('dark');
-      } else {
-        html.classList.remove('dark');
-      }
-    }
-
-    // Apply initial theme immediately (already done in BaseLayout, but good to have)
-    applyTheme(getInitialTheme());
-
-    function initToggle() {
-      const toggle = document.getElementById('theme-toggle');
+    document.addEventListener('click', (event) => {
+      const toggle = (event.target as HTMLElement).closest('#theme-toggle');
       if (toggle) {
-        // Remove existing listener if any, by cloning or just letting it recreate
-        // Since toggle is new in the DOM on each transition, we can safely just add the event listener
-        toggle.addEventListener('click', () => {
-          const isDark = html.classList.contains('dark');
-          const next = isDark ? 'light' : 'dark';
-          applyTheme(next);
-          localStorage.setItem('theme', next);
-        });
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        const next = isDark ? 'light' : 'dark';
+        
+        if (next === 'dark') {
+          html.classList.add('dark');
+        } else {
+          html.classList.remove('dark');
+        }
+        localStorage.setItem('theme', next);
       }
-    }
-
-    // Initialize on page load/transition
-    document.addEventListener('astro:page-load', initToggle);
-    initToggle();
-  })();
+    });
+  }
 </script>

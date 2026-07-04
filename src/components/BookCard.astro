@@ -11,9 +11,9 @@ interface Props {
 const { title, author, category, description, url, tags } = Astro.props;
 ---
 
-<div class="p-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-border-hover)] transition-all duration-200 flex flex-col justify-between h-full relative group">
+<div class="p-8 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-border-hover)] transition-all duration-200 flex flex-col justify-between h-full relative group">
   <div>
-    <div class="flex items-center justify-between gap-2 mb-3">
+    <div class="flex items-center justify-between gap-2 mb-4">
       <span class="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] border border-[var(--color-border)]">
         {category}
       </span>
@@ -26,7 +26,7 @@ const { title, author, category, description, url, tags } = Astro.props;
       )}
     </div>
 
-    <h3 class="font-serif text-lg font-bold text-[var(--color-text)] leading-snug">
+    <h3 class="font-serif text-xl font-bold text-[var(--color-text)] leading-snug">
       {url ? (
         <a href={url} target="_blank" rel="noopener noreferrer" class="hover:underline focus:outline-none">
           {title}
@@ -39,7 +39,7 @@ const { title, author, category, description, url, tags } = Astro.props;
       {author}
     </p>
 
-    <p class="text-xs text-[var(--color-text-secondary)] mt-4 leading-relaxed line-clamp-3">
+    <p class="text-sm text-[var(--color-text-secondary)] mt-4 leading-relaxed line-clamp-3">
       {description}
     </p>
   </div>

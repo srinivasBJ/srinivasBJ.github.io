@@ -106,7 +106,7 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
     <ScrollProgress />
 
     <!-- Permanent Sidebar (Desktop) -->
-    <aside class="fixed top-0 left-0 bottom-0 w-64 border-r border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-8 z-40 hidden md:block">
+    <aside class="fixed top-0 left-0 bottom-0 w-56 border-r border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-8 z-40 hidden md:block">
       <Sidebar />
     </aside>
 
@@ -161,7 +161,7 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
     </div>
 
     <!-- Main Content Area -->
-    <div class="md:pl-64 flex-1 min-h-screen flex flex-col">
+    <div class="md:pl-56 flex-1 min-h-screen flex flex-col">
       <main id="main-content" class="flex-1">
         <slot />
       </main>
