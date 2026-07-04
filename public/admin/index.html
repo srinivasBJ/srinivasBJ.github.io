@@ -46,14 +46,23 @@
 
             // Fetch profile name using token if login is not cached yet
             if (user.token && !user.login) {
-              const res = await fetch('https://api.github.com/user', {
-                headers: { 'Authorization': `token ${user.token}` }
-              });
-              if (res.ok) {
-                const profile = await res.json();
-                user.login = profile.login;
-                localStorage.setItem('decap-cms-user', JSON.stringify(user));
-              } else {
+              try {
+                const res = await fetch('https://api.github.com/user', {
+                  headers: { 'Authorization': `token ${user.token}` }
+                });
+                if (res.ok) {
+                  const profile = await res.json();
+                  user.login = profile.login;
+                  localStorage.setItem('decap-cms-user', JSON.stringify(user));
+                } else {
+                  const errText = await res.text();
+                  alert('GitHub API Authorization Failed (Status ' + res.status + '): ' + errText + '\nToken: ' + user.token.substring(0, 10) + '...');
+                  localStorage.removeItem('decap-cms-user');
+                  location.reload();
+                  return;
+                }
+              } catch (fetchErr) {
+                alert('Network/CORS Error fetching user profile: ' + fetchErr.message);
                 localStorage.removeItem('decap-cms-user');
                 location.reload();
                 return;
@@ -61,15 +70,10 @@
             }
 
             if (user.login && user.login.toLowerCase() !== 'srinivasbj') {
+              alert('Access Denied: Logged in as GitHub user "' + user.login + '". Only "srinivasbj" is authorized to access the CMS.');
               localStorage.removeItem('decap-cms-user');
-              document.body.innerHTML = `
-                <div style="background-color:#0b0a09; color:#eae6df; font-family:system-ui, -apple-system, sans-serif; height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px;">
-                  <h1 style="color:#ef4444; font-family:Georgia, serif; font-size:2.5rem; font-weight:700; margin:0;">Access Denied</h1>
-                  <p style="color:#b2ada1; margin:0; font-size:0.95rem; text-align:center; max-w:280px; line-height:1.5;">This personal publishing platform is restricted exclusively to srinivasBJ.</p>
-                  <a href="/" style="color:#eae6df; font-size:0.85rem; font-weight:500; text-decoration:underline; margin-top:8px;">Return to Site</a>
-                </div>
-              `;
-              window.stop();
+              location.reload();
+              return;
             }
           } catch (e) {
             localStorage.removeItem('decap-cms-user');
