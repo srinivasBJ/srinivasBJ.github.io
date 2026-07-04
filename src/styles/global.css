@@ -38,39 +38,39 @@
    CSS CUSTOM PROPERTIES — Light Mode (Default)
    ============================================================ */
 :root {
-  /* Background */
-  --color-bg: var(--color-stone-50);
-  --color-bg-secondary: var(--color-stone-100);
-  --color-bg-tertiary: var(--color-stone-200);
+  /* Background — Warm parchment tones */
+  --color-bg: #faf6ef;
+  --color-bg-secondary: #f3ece0;
+  --color-bg-tertiary: #e8dece;
 
-  /* Text */
-  --color-text: var(--color-stone-900);
-  --color-text-secondary: var(--color-stone-600);
-  --color-text-tertiary: var(--color-stone-400);
+  /* Text — Rich warm browns */
+  --color-text: #2c2417;
+  --color-text-secondary: #6b5d4d;
+  --color-text-tertiary: #9e8e7a;
 
-  /* Borders */
-  --color-border: var(--color-stone-200);
-  --color-border-hover: var(--color-stone-300);
+  /* Borders — Subtle warm lines */
+  --color-border: #e2d5c3;
+  --color-border-hover: #cfc0ab;
 
   /* Accent */
-  --color-accent: var(--color-stone-900); /* Restrained, high contrast accent */
-  --color-accent-hover: var(--color-stone-700);
-  --color-accent-subtle: var(--color-stone-100);
-  --color-accent-primary: var(--color-accent-600); /* Purple reserved for highlighting */
+  --color-accent: #2c2417;
+  --color-accent-hover: #1a150e;
+  --color-accent-subtle: #f3ece0;
+  --color-accent-primary: var(--color-accent-600);
 
-  /* Surface */
-  --color-surface: #ffffff;
-  --color-surface-hover: var(--color-stone-50);
+  /* Surface — Warm paper cards */
+  --color-surface: #fdf9f3;
+  --color-surface-hover: #f7f0e5;
   --color-surface-elevated: #ffffff;
 
   /* Code blocks */
-  --color-code-bg: var(--color-stone-100);
-  --color-code-text: var(--color-stone-800);
+  --color-code-bg: #f3ece0;
+  --color-code-text: #3d3225;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.02);
-  --shadow-md: 0 2px 4px 0 rgb(0 0 0 / 0.02), 0 1px 2px 0 rgb(0 0 0 / 0.02);
-  --shadow-lg: 0 4px 8px 0 rgb(0 0 0 / 0.02);
+  /* Shadows — Warm amber tint */
+  --shadow-sm: 0 1px 2px 0 rgb(60 40 10 / 0.04);
+  --shadow-md: 0 2px 4px 0 rgb(60 40 10 / 0.04), 0 1px 2px 0 rgb(60 40 10 / 0.03);
+  --shadow-lg: 0 4px 8px 0 rgb(60 40 10 / 0.05);
 
   /* Scroll progress */
   --scroll-progress: 0%;
@@ -134,8 +134,8 @@ body {
 }
 
 ::selection {
-  background-color: var(--color-border-hover);
-  color: var(--color-text);
+  background-color: #d4a574;
+  color: #2c2417;
 }
 
 /* ============================================================

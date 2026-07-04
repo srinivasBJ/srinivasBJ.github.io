@@ -43,14 +43,14 @@ function isActive(href: string): boolean {
     <div>
       <button
         onclick="document.dispatchEvent(new CustomEvent('toggle-command-palette'))"
-        class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:border-[var(--color-border-hover)] hover:bg-[var(--color-bg-secondary)] transition-all duration-150 cursor-pointer"
-        aria-label="Search pages"
+        class="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[var(--color-text-tertiary)] border border-[var(--color-border)] hover:border-[var(--color-border-hover)] hover:bg-[var(--color-bg-secondary)] transition-all duration-150 cursor-pointer"
+        aria-label="Search"
       >
-        <svg class="w-4 h-4 text-[var(--color-text-tertiary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
-        <span class="text-xs text-[var(--color-text-tertiary)]">Search site…</span>
-        <kbd class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] text-[var(--color-text-tertiary)]">
+        <span>Search…</span>
+        <kbd class="ml-auto text-[9px] font-mono px-1 py-0.5 rounded bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] text-[var(--color-text-tertiary)]">
           ⌘K
         </kbd>
       </button>
