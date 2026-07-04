@@ -19,26 +19,19 @@
   <body>
     <!-- Strict authentication gate block -->
     <script>
-      (function () {
+      (async function () {
         // Same-origin popup redirect handler
         const params = new URLSearchParams(window.location.search);
         const token = params.get('token');
         if (token) {
+          localStorage.setItem('decap-cms-user', JSON.stringify({
+            token: token,
+            provider: 'github'
+          }));
           if (window.opener) {
-            const message = "authorization:github:success:" + JSON.stringify({
-              token: token,
-              provider: "github"
-            });
-            window.opener.postMessage(message, "*");
-            window.close();
-          } else {
-            // Fallback: save token directly
-            localStorage.setItem('decap-cms-user', JSON.stringify({
-              token: token,
-              provider: 'github'
-            }));
-            window.location.href = '/admin/';
+            window.opener.location.reload();
           }
+          window.close();
           window.stop();
           return;
         }
@@ -47,6 +40,23 @@
         if (userStr) {
           try {
             const user = JSON.parse(userStr);
+
+            // Fetch profile name using token if login is not cached yet
+            if (user.token && !user.login) {
+              const res = await fetch('https://api.github.com/user', {
+                headers: { 'Authorization': `token ${user.token}` }
+              });
+              if (res.ok) {
+                const profile = await res.json();
+                user.login = profile.login;
+                localStorage.setItem('decap-cms-user', JSON.stringify(user));
+              } else {
+                localStorage.removeItem('decap-cms-user');
+                location.reload();
+                return;
+              }
+            }
+
             if (user.login && user.login.toLowerCase() !== 'srinivasbj') {
               localStorage.removeItem('decap-cms-user');
               document.body.innerHTML = `
