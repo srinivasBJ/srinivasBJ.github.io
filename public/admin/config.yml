@@ -1,0 +1,81 @@
+backend:
+  name: github
+  repo: srinivasBJ/srinivasBJ.github.io
+  branch: main
+  site_domain: srinivasbj.github.io
+  base_url: https://srinivasbj-oauth.workers.dev # Change this to your deployed Cloudflare Worker / Vercel Gateway URL
+  auth_endpoint: auth
+
+# Enable Git Editorial Workflow (Drafts, Reviews, Publishing branches)
+publish_mode: editorial_workflow
+
+# Media and Upload Assets settings
+media_folder: public/images
+public_folder: /images
+
+collections:
+  # Collection 1: Blog Articles
+  - name: "blog"
+    label: "Blog (Articles)"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description / Abstract", name: "description", widget: "text" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Categories", name: "categories", widget: "list", field: { name: "category", widget: "string" }, default: ["general"] }
+      - { label: "Tags", name: "tags", widget: "list", field: { name: "tag", widget: "string" } }
+      - { label: "Draft Mode", name: "draft", widget: "boolean", default: false }
+      - { label: "Pin to Home", name: "pinned", widget: "boolean", default: false }
+      - { label: "Body Content (Markdown)", name: "body", widget: "markdown" }
+
+  # Collection 2: Lab Notes (Digital Garden)
+  - name: "lab"
+    label: "Lab (Garden Notes)"
+    folder: "src/content/lab"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Category", name: "category", widget: "string", default: "General" }
+      - { label: "Tags", name: "tags", widget: "list", field: { name: "tag", widget: "string" } }
+      - { label: "Draft Mode", name: "draft", widget: "boolean", default: false }
+      - { label: "Body Content (Markdown)", name: "body", widget: "markdown" }
+
+  # Collection 3: Projects (Structured Case Studies)
+  - name: "projects"
+    label: "Projects"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description / Summary", name: "description", widget: "text" }
+      - { label: "Tags", name: "tags", widget: "list", field: { name: "tag", widget: "string" } }
+      - { label: "GitHub URL", name: "github", widget: "string", required: false }
+      - { label: "Live Demo URL", name: "demo", widget: "string", required: false }
+      - { label: "Timeline", name: "timeline", widget: "string", placeholder: "e.g. 2024" }
+      - { label: "Featured Project", name: "featured", widget: "boolean", default: false }
+      - { label: "Sort Order", name: "order", widget: "number", value_type: "int", default: 0 }
+      - { label: "Body Content (Markdown)", name: "body", widget: "markdown" }
+
+  # Collection 4: Reading Log (Bookmarked Knowledge)
+  - name: "reading"
+    label: "Reading List"
+    folder: "src/content/reading"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Author / Source", name: "author", widget: "string" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: ["books", "articles", "websites", "papers", "resources", "bookmarks"]
+        default: "books"
+      - { label: "Description / Recommendation", name: "description", widget: "text" }
+      - { label: "External URL", name: "url", widget: "string", required: false }
+      - { label: "Tags", name: "tags", widget: "list", field: { name: "tag", widget: "string" } }
+      - { label: "Body Content (Markdown)", name: "body", widget: "markdown" }

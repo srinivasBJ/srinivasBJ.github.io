@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Publisher Dashboard</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Global CSS properties for typography and styling -->
+    <style>
+      /* Quick pre-loading background matching charcoal dark theme */
+      body {
+        background-color: #0b0a09;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Strict authentication gate block -->
+    <script>
+      (function () {
+        const userStr = localStorage.getItem('decap-cms-user');
+        if (userStr) {
+          try {
+            const user = JSON.parse(userStr);
+            if (user.login && user.login.toLowerCase() !== 'srinivasbj') {
+              localStorage.removeItem('decap-cms-user');
+              document.body.innerHTML = `
+                <div style="background-color:#0b0a09; color:#eae6df; font-family:system-ui, -apple-system, sans-serif; height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px;">
+                  <h1 style="color:#ef4444; font-family:Georgia, serif; font-size:2.5rem; font-weight:700; margin:0;">Access Denied</h1>
+                  <p style="color:#b2ada1; margin:0; font-size:0.95rem; text-align:center; max-w:280px; line-height:1.5;">This personal publishing platform is restricted exclusively to srinivasBJ.</p>
+                  <a href="/" style="color:#eae6df; font-size:0.85rem; font-weight:500; text-decoration:underline; margin-top:8px;">Return to Site</a>
+                </div>
+              `;
+              window.stop();
+            }
+          } catch (e) {
+            localStorage.removeItem('decap-cms-user');
+          }
+        }
+      })();
+    </script>
+
+    <!-- Load Decap CMS via unpkg CDN -->
+    <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
+
+    <!-- Configure CMS Event Listeners -->
+    <script>
+      (function () {
+        if (window.CMS) {
+          // Monitor login events
+          CMS.registerEventListener({
+            name: 'login',
+            handler: ({ user }) => {
+              if (user.login.toLowerCase() !== 'srinivasbj') {
+                localStorage.removeItem('decap-cms-user');
+                alert('Access Denied: Only srinivasBJ is authorized to access the CMS.');
+                location.reload();
+              }
+            }
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
