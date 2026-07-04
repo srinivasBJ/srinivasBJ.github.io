@@ -114,28 +114,9 @@ export default {
           return new Response(`OAuth Error: ${data.error_description}`, { status: 400 });
         }
 
-        // Return token to Decap CMS parent window window.opener via postMessage
-        const content = `
-          <!DOCTYPE html>
-          <html>
-            <body>
-              <script>
-                (function() {
-                  const message = "authorization:github:success:" + JSON.stringify({
-                    token: "${data.access_token}",
-                    provider: "github"
-                  });
-                  window.opener.postMessage(message, "*");
-                  window.close();
-                })();
-              </script>
-            </body>
-          </html>
-        `;
-
-        return new Response(content, {
-          headers: { "Content-Type": "text/html;charset=UTF-8" },
-        });
+        // Redirect popup back to your main same-origin site
+        const redirectUrl = `https://srinivasbj.github.io/admin/?token=${data.access_token}`;
+        return Response.redirect(redirectUrl, 302);
       } catch (err) {
         return new Response(`Internal Server Error: ${err.message}`, { status: 500 });
       }

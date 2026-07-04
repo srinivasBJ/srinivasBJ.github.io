@@ -20,6 +20,29 @@
     <!-- Strict authentication gate block -->
     <script>
       (function () {
+        // Same-origin popup redirect handler
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('token');
+        if (token) {
+          if (window.opener) {
+            const message = "authorization:github:success:" + JSON.stringify({
+              token: token,
+              provider: "github"
+            });
+            window.opener.postMessage(message, "*");
+            window.close();
+          } else {
+            // Fallback: save token directly
+            localStorage.setItem('decap-cms-user', JSON.stringify({
+              token: token,
+              provider: 'github'
+            }));
+            window.location.href = '/admin/';
+          }
+          window.stop();
+          return;
+        }
+
         const userStr = localStorage.getItem('decap-cms-user');
         if (userStr) {
           try {
