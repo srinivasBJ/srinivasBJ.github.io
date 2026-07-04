@@ -2,8 +2,9 @@
 title: "Building This Site"
 description: "A deep dive into the architecture and design decisions behind this website — built with Astro, Tailwind CSS, and a commitment to longevity."
 date: 2024-01-20
-category: "engineering"
+categories: ["engineering"]
 tags: ["astro", "tailwind", "web-development", "design"]
+pinned: false
 ---
 
 ## The Stack

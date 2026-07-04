@@ -4,16 +4,16 @@ import PageLayout from '../../../layouts/PageLayout.astro';
 import PostCard from '../../../components/PostCard.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('writing');
+  const posts = await getCollection('blog');
   const activePosts = posts.filter(p => !p.data.draft);
-  const categories = [...new Set(activePosts.map(p => p.data.category || 'general'))];
+  const categories = [...new Set(activePosts.flatMap(p => p.data.categories || []))];
 
   return categories.map(category => ({
     params: { category },
     props: {
       category,
       posts: activePosts
-        .filter(p => (p.data.category || 'general') === category)
+        .filter(p => p.data.categories?.includes(category))
         .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
     },
   }));
@@ -28,16 +28,16 @@ function getReadingTime(text: string): string {
 ---
 
 <PageLayout
-  title={`Category: ${category.charAt(0).toUpperCase() + category.slice(1)}`}
-  description={`Explore all articles in the '${category}' category.`}
+  title={`Category: ${category}`}
+  description={`Browse articles categorized under '${category}'.`}
   breadcrumbs={[
-    { label: 'Writing', href: '/writing' },
-    { label: category.charAt(0).toUpperCase() + category.slice(1), href: `/writing/categories/${category}` }
+    { label: 'Blog', href: '/blog' },
+    { label: category, href: `/blog/categories/${category}` }
   ]}
 >
   <div class="mb-8">
-    <a href="/writing" class="text-sm text-[var(--color-accent)] hover:underline flex items-center gap-1">
-      ← Back to all articles
+    <a href="/blog" class="text-xs font-mono text-[var(--color-accent-primary)] hover:underline flex items-center gap-1">
+      ← BACK TO ALL ARTICLES
     </a>
   </div>
 
@@ -49,8 +49,7 @@ function getReadingTime(text: string): string {
         slug={post.id}
         date={post.data.date}
         readingTime={getReadingTime(post.body || '')}
-        tags={post.data.tags}
-        category={post.data.category}
+        categories={post.data.categories}
       />
     ))}
   </div>

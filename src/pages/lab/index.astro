@@ -1,0 +1,56 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getCollection } from 'astro:content';
+
+const labNotes = await getCollection('lab');
+const activeNotes = labNotes
+  .filter(n => !n.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Group by category for an organized dashboard feel
+const categories = [...new Set(activeNotes.map(n => n.data.category))];
+---
+
+<PageLayout
+  title="The Lab"
+  description="My digital garden — lightweight notes, Linux setup logs, ChatGPT logs, AWS configurations, and quick thoughts."
+>
+  <div class="space-y-12">
+    {categories.map(category => {
+      const notes = activeNotes.filter(n => n.data.category === category);
+      return (
+        <section class="space-y-4">
+          <h2 class="font-serif text-xl font-bold border-b border-[var(--color-border)] pb-2 text-[var(--color-text)]">
+            {category}
+          </h2>
+          <div class="grid gap-4">
+            {notes.map(note => (
+              <a
+                href={`/lab/${note.id}`}
+                class="p-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-border-hover)] transition-all duration-150 group block"
+              >
+                <div class="flex items-center justify-between text-xs font-mono text-[var(--color-text-tertiary)] mb-2">
+                  <span>{new Date(note.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                  {note.data.tags && note.data.tags.length > 0 && (
+                    <div class="flex gap-1.5">
+                      {note.data.tags.slice(0, 2).map(t => (
+                        <span>#{t}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <h3 class="font-serif font-bold text-base text-[var(--color-text)] group-hover:text-[var(--color-accent-primary)] transition-colors">
+                  {note.data.title}
+                </h3>
+              </a>
+            ))}
+          </div>
+        </section>
+      );
+    })}
+
+    {activeNotes.length === 0 && (
+      <p class="text-[var(--color-text-tertiary)] italic py-12 text-center">No lab notes published yet.</p>
+    )}
+  </div>
+</PageLayout>

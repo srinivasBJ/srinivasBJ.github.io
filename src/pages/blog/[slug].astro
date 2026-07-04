@@ -3,11 +3,11 @@ import { getCollection, render } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('writing');
+  const posts = await getCollection('blog');
   const sorted = posts
     .filter(p => !p.data.draft)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-
+  
   return sorted.map((entry, i) => ({
     params: { slug: entry.id },
     props: {
@@ -27,7 +27,6 @@ function getReadingTime(text: string): string {
 }
 const readingTime = getReadingTime(entry.body || '');
 ---
-
 <PostLayout frontmatter={entry.data} headings={headings} prev={prev} next={next} readingTime={readingTime}>
   <Content />
 </PostLayout>

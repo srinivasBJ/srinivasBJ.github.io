@@ -1,27 +1,42 @@
 ---
-// CommandPalette: hidden modal triggered by Cmd+K / Ctrl+K.
-// Provides a search interface over navigation items.
+import { getCollection } from 'astro:content';
 
-interface PaletteItem {
-  label: string;
-  href: string;
-  section: string;
-}
+const blog = await getCollection('blog');
+const lab = await getCollection('lab');
+const projects = await getCollection('projects');
+const reading = await getCollection('reading');
 
-const items: PaletteItem[] = [
-  { label: 'Home', href: '/', section: 'Pages' },
-  { label: 'About', href: '/about', section: 'Pages' },
-  { label: 'Projects', href: '/projects', section: 'Pages' },
-  { label: 'Writing', href: '/writing', section: 'Pages' },
-  { label: 'Research', href: '/research', section: 'Pages' },
-  { label: 'Reading', href: '/reading', section: 'Pages' },
-  { label: 'Contact', href: '/contact', section: 'Pages' },
+const items = [
+  ...blog.filter(post => !post.data.draft).map(item => ({
+    label: item.data.title,
+    href: `/blog/${item.id}`,
+    section: 'Blog',
+    text: `${item.data.title} ${item.data.description} ${(item.data.tags || []).join(' ')}`.toLowerCase()
+  })),
+  ...lab.filter(note => !note.data.draft).map(item => ({
+    label: item.data.title,
+    href: `/lab/${item.id}`,
+    section: 'Lab',
+    text: `${item.data.title} ${item.data.category} ${(item.data.tags || []).join(' ')}`.toLowerCase()
+  })),
+  ...projects.map(item => ({
+    label: item.data.title,
+    href: `/projects/${item.id}`,
+    section: 'Projects',
+    text: `${item.data.title} ${item.data.description} ${(item.data.tags || []).join(' ')}`.toLowerCase()
+  })),
+  ...reading.map(item => ({
+    label: `${item.data.title} by ${item.data.author}`,
+    href: `/reading`,
+    section: 'Reading',
+    text: `${item.data.title} ${item.data.author} ${item.data.description} ${item.data.category}`.toLowerCase()
+  }))
 ];
 ---
 
 <div
   id="command-palette-overlay"
-  class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm hidden"
+  class="fixed inset-0 z-[100] bg-black/40 backdrop-blur-xs hidden animate-fade-in"
   role="presentation"
 >
   <div
@@ -39,7 +54,7 @@ const items: PaletteItem[] = [
       <input
         id="cmd-search"
         type="text"
-        placeholder="Search pages…"
+        placeholder="Search posts, lab notes, projects, reading list…"
         class="w-full py-3.5 bg-transparent text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] outline-none"
         autocomplete="off"
         spellcheck="false"
@@ -61,7 +76,7 @@ const items: PaletteItem[] = [
           role="option"
           aria-selected="false"
           data-href={item.href}
-          data-label={item.label.toLowerCase()}
+          data-text={item.text}
           class:list={[
             'cmd-item flex items-center gap-3 px-4 py-2.5 text-sm cursor-pointer transition-colors duration-100',
             idx === 0
@@ -72,8 +87,8 @@ const items: PaletteItem[] = [
           <svg class="w-4 h-4 shrink-0 text-[var(--color-text-tertiary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
           </svg>
-          <span>{item.label}</span>
-          <span class="ml-auto text-xs text-[var(--color-text-tertiary)]">{item.section}</span>
+          <span class="truncate font-medium">{item.label}</span>
+          <span class="ml-auto text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-[var(--color-bg-secondary)] border border-[var(--color-border)] text-[var(--color-text-tertiary)] shrink-0">{item.section}</span>
         </li>
       ))}
     </ul>
@@ -189,13 +204,8 @@ const items: PaletteItem[] = [
       const overlay = document.getElementById('command-palette-overlay');
       const searchInput = document.getElementById('cmd-search');
       const resultsList = document.getElementById('cmd-results');
-      const trigger = document.getElementById('cmd-palette-trigger');
 
       if (!overlay || !searchInput || !resultsList) return;
-
-      if (trigger) {
-        trigger.addEventListener('click', () => openPalette(overlay, searchInput, resultsList));
-      }
 
       overlay.addEventListener('click', (e) => {
         if (e.target === overlay) closePalette(overlay, searchInput);
@@ -225,8 +235,8 @@ const items: PaletteItem[] = [
       searchInput.addEventListener('input', () => {
         const query = searchInput.value.toLowerCase().trim();
         resultsList.querySelectorAll('.cmd-item').forEach((item) => {
-          const label = item.getAttribute('data-label') || '';
-          if (!query || label.includes(query)) {
+          const text = item.getAttribute('data-text') || '';
+          if (!query || text.includes(query)) {
             item.removeAttribute('hidden');
           } else {
             item.setAttribute('hidden', '');

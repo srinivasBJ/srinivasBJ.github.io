@@ -2,8 +2,9 @@
 title: "Hello, World"
 description: "A first post to mark the beginning of this digital space — a home for thoughts, projects, and explorations."
 date: 2024-01-15
-category: "general"
+categories: ["general"]
 tags: ["meta", "introduction"]
+pinned: true
 ---
 
 ## Why Build a Personal Site?
