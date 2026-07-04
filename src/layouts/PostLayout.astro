@@ -1,0 +1,89 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import TagList from '../components/TagList.astro';
+import PrevNextNav from '../components/PrevNextNav.astro';
+import CopyCodeButton from '../components/CopyCodeButton.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description: string;
+    date: Date;
+    category: string;
+    tags: string[];
+    draft?: boolean;
+  };
+  headings: { depth: number; slug: string; text: string }[];
+  prev?: { title: string; slug: string } | null;
+  next?: { title: string; slug: string } | null;
+  readingTime: string;
+}
+
+const { frontmatter, headings, prev, next, readingTime } = Astro.props;
+
+const formattedDate = new Date(frontmatter.date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  article={true}
+  publishDate={new Date(frontmatter.date)}
+>
+  <div class="max-w-4xl mx-auto px-6 py-16">
+    <!-- Article Header -->
+    <header class="mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight">
+        {frontmatter.title}
+      </h1>
+
+      <div class="mt-4 flex flex-wrap items-center gap-3 text-sm text-[var(--color-text-secondary)]">
+        <time datetime={new Date(frontmatter.date).toISOString()}>
+          {formattedDate}
+        </time>
+        <span class="text-[var(--color-border)]">·</span>
+        <span>{readingTime}</span>
+        <span class="text-[var(--color-border)]">·</span>
+        <span
+          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--color-accent)]/10 text-[var(--color-accent)]"
+        >
+          {frontmatter.category}
+        </span>
+      </div>
+
+      {frontmatter.tags.length > 0 && (
+        <div class="mt-4">
+          <TagList tags={frontmatter.tags} />
+        </div>
+      )}
+    </header>
+
+    <!-- Content Grid: Article + TOC Sidebar -->
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-12">
+      <!-- Article Content -->
+      <article class="prose">
+        <slot />
+      </article>
+
+      <!-- Table of Contents Sidebar (desktop only) -->
+      {headings.length > 0 && (
+        <aside class="hidden lg:block">
+          <div class="sticky top-24">
+            <TableOfContents headings={headings} />
+          </div>
+        </aside>
+      )}
+    </div>
+
+    <!-- Previous / Next Navigation -->
+    <PrevNextNav prev={prev} next={next} />
+  </div>
+
+  <!-- Copy Code Button (adds functionality to all code blocks) -->
+  <CopyCodeButton />
+</BaseLayout>

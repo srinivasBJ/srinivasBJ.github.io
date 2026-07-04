@@ -1,0 +1,165 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+const navLinks: NavLink[] = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Writing', href: '/writing' },
+  { label: 'Research', href: '/research' },
+  { label: 'Reading', href: '/reading' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<header
+  class="fixed top-0 w-full z-50 backdrop-blur-xl bg-[var(--color-bg)]/80 border-b border-[var(--color-border)]"
+>
+  <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+    <!-- Logo / Site Name -->
+    <a
+      href="/"
+      class="font-semibold text-lg text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors duration-200"
+    >
+      Your Name
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-1" aria-label="Main navigation">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            'px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200',
+            isActive(link.href)
+              ? 'text-[var(--color-accent)] bg-[var(--color-accent-subtle)]'
+              : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-hover)]',
+          ]}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Right side actions -->
+    <div class="flex items-center gap-1">
+      <!-- Command Palette Trigger -->
+      <button
+        id="cmd-palette-trigger"
+        type="button"
+        class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-[var(--color-text-tertiary)] border border-[var(--color-border)] hover:border-[var(--color-border-hover)] hover:text-[var(--color-text-secondary)] transition-colors duration-200"
+        aria-label="Open command palette"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        </svg>
+        <span class="text-xs">
+          <kbd class="font-mono">⌘K</kbd>
+        </span>
+      </button>
+
+      <ThemeToggle />
+
+      <!-- Mobile Hamburger -->
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        class="md:hidden p-2 rounded-lg hover:bg-[var(--color-surface-hover)] transition-colors duration-200"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg id="menu-icon-open" class="w-5 h-5 text-[var(--color-text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+        <svg id="menu-icon-close" class="w-5 h-5 text-[var(--color-text)] hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Dropdown -->
+  <nav
+    id="mobile-menu"
+    class="md:hidden hidden border-t border-[var(--color-border)] bg-[var(--color-bg)]/95 backdrop-blur-xl"
+    aria-label="Mobile navigation"
+  >
+    <div class="max-w-4xl mx-auto px-6 py-4 flex flex-col gap-1">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            'px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200',
+            isActive(link.href)
+              ? 'text-[var(--color-accent)] bg-[var(--color-accent-subtle)]'
+              : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-hover)]',
+          ]}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>
+
+<script is:inline>
+  (function () {
+    function initMobileMenu() {
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      const iconOpen = document.getElementById('menu-icon-open');
+      const iconClose = document.getElementById('menu-icon-close');
+
+      if (!btn || !menu || !iconOpen || !iconClose) return;
+
+      btn.addEventListener('click', () => {
+        const isOpen = !menu.classList.contains('hidden');
+        menu.classList.toggle('hidden');
+        iconOpen.classList.toggle('hidden');
+        iconClose.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', String(!isOpen));
+      });
+    }
+
+    // Deduplicate resize listener to prevent leaks
+    function handleResize() {
+      if (window.innerWidth >= 768) {
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+        if (btn && menu && iconOpen && iconClose) {
+          menu.classList.add('hidden');
+          iconOpen.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      }
+    }
+
+    if (window.__mobileMenuResizeHandler) {
+      window.removeEventListener('resize', window.__mobileMenuResizeHandler);
+    }
+    window.__mobileMenuResizeHandler = handleResize;
+    window.addEventListener('resize', handleResize);
+
+    // Initialize on page load/transition
+    document.addEventListener('astro:page-load', initMobileMenu);
+    initMobileMenu();
+  })();
+</script>

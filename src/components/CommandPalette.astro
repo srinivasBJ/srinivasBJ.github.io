@@ -1,0 +1,249 @@
+---
+// CommandPalette: hidden modal triggered by Cmd+K / Ctrl+K.
+// Provides a search interface over navigation items.
+
+interface PaletteItem {
+  label: string;
+  href: string;
+  section: string;
+}
+
+const items: PaletteItem[] = [
+  { label: 'Home', href: '/', section: 'Pages' },
+  { label: 'About', href: '/about', section: 'Pages' },
+  { label: 'Projects', href: '/projects', section: 'Pages' },
+  { label: 'Writing', href: '/writing', section: 'Pages' },
+  { label: 'Research', href: '/research', section: 'Pages' },
+  { label: 'Reading', href: '/reading', section: 'Pages' },
+  { label: 'Contact', href: '/contact', section: 'Pages' },
+];
+---
+
+<div
+  id="command-palette-overlay"
+  class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm hidden"
+  role="presentation"
+>
+  <div
+    id="command-palette"
+    class="max-w-lg mx-auto mt-[15vh] bg-[var(--color-surface)] rounded-xl shadow-xl border border-[var(--color-border)] overflow-hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Command palette"
+  >
+    <!-- Search Input -->
+    <div class="flex items-center gap-3 px-4 border-b border-[var(--color-border)]">
+      <svg class="w-5 h-5 text-[var(--color-text-tertiary)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+      </svg>
+      <input
+        id="cmd-search"
+        type="text"
+        placeholder="Search pages…"
+        class="w-full py-3.5 bg-transparent text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] outline-none"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <kbd class="hidden sm:inline-block shrink-0 text-xs px-1.5 py-0.5 rounded bg-[var(--color-bg-secondary)] text-[var(--color-text-tertiary)] border border-[var(--color-border)] font-mono">
+        ESC
+      </kbd>
+    </div>
+
+    <!-- Results List -->
+    <ul
+      id="cmd-results"
+      class="max-h-72 overflow-y-auto py-2"
+      role="listbox"
+      aria-label="Search results"
+    >
+      {items.map((item, idx) => (
+        <li
+          role="option"
+          aria-selected="false"
+          data-href={item.href}
+          data-label={item.label.toLowerCase()}
+          class:list={[
+            'cmd-item flex items-center gap-3 px-4 py-2.5 text-sm cursor-pointer transition-colors duration-100',
+            idx === 0
+              ? 'bg-[var(--color-surface-hover)] text-[var(--color-text)]'
+              : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text)]',
+          ]}
+        >
+          <svg class="w-4 h-4 shrink-0 text-[var(--color-text-tertiary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+          <span>{item.label}</span>
+          <span class="ml-auto text-xs text-[var(--color-text-tertiary)]">{item.section}</span>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Footer hint -->
+    <div class="flex items-center gap-4 px-4 py-2.5 border-t border-[var(--color-border)] text-xs text-[var(--color-text-tertiary)]">
+      <span class="flex items-center gap-1">
+        <kbd class="font-mono px-1 py-0.5 rounded bg-[var(--color-bg-secondary)] border border-[var(--color-border)]">↑↓</kbd>
+        navigate
+      </span>
+      <span class="flex items-center gap-1">
+        <kbd class="font-mono px-1 py-0.5 rounded bg-[var(--color-bg-secondary)] border border-[var(--color-border)]">↵</kbd>
+        open
+      </span>
+      <span class="flex items-center gap-1">
+        <kbd class="font-mono px-1 py-0.5 rounded bg-[var(--color-bg-secondary)] border border-[var(--color-border)]">esc</kbd>
+        close
+      </span>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    let activeIndex = 0;
+
+    function getVisibleItems(resultsList) {
+      return Array.from(resultsList.querySelectorAll('.cmd-item:not([hidden])'));
+    }
+
+    function updateActive(resultsList, newIndex) {
+      const items = getVisibleItems(resultsList);
+      items.forEach((item, i) => {
+        if (i === newIndex) {
+          item.classList.add('bg-[var(--color-surface-hover)]');
+          item.classList.add('text-[var(--color-text)]');
+          item.classList.remove('text-[var(--color-text-secondary)]');
+          item.setAttribute('aria-selected', 'true');
+          item.scrollIntoView({ block: 'nearest' });
+        } else {
+          item.classList.remove('bg-[var(--color-surface-hover)]');
+          item.classList.remove('text-[var(--color-text)]');
+          item.classList.add('text-[var(--color-text-secondary)]');
+          item.setAttribute('aria-selected', 'false');
+        }
+      });
+      activeIndex = newIndex;
+    }
+
+    function openPalette(overlay, searchInput, resultsList) {
+      overlay.classList.remove('hidden');
+      searchInput.value = '';
+      searchInput.focus();
+
+      resultsList.querySelectorAll('.cmd-item').forEach((item) => {
+        item.removeAttribute('hidden');
+      });
+
+      const items = getVisibleItems(resultsList);
+      activeIndex = 0;
+      if (items.length) updateActive(resultsList, 0);
+    }
+
+    function closePalette(overlay, searchInput) {
+      overlay.classList.add('hidden');
+      searchInput.value = '';
+    }
+
+    function navigateToItem(item, overlay, searchInput) {
+      const href = item.getAttribute('data-href');
+      if (href) {
+        closePalette(overlay, searchInput);
+        window.location.href = href;
+      }
+    }
+
+    // Initialize document-level listeners ONCE
+    if (!window.__commandPaletteInitialized) {
+      window.__commandPaletteInitialized = true;
+
+      document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          const overlay = document.getElementById('command-palette-overlay');
+          const searchInput = document.getElementById('cmd-search');
+          const resultsList = document.getElementById('cmd-results');
+          if (overlay && searchInput && resultsList) {
+            if (overlay.classList.contains('hidden')) {
+              openPalette(overlay, searchInput, resultsList);
+            } else {
+              closePalette(overlay, searchInput);
+            }
+          }
+        }
+      });
+
+      document.addEventListener('toggle-command-palette', () => {
+        const overlay = document.getElementById('command-palette-overlay');
+        const searchInput = document.getElementById('cmd-search');
+        const resultsList = document.getElementById('cmd-results');
+        if (overlay && searchInput && resultsList) {
+          if (overlay.classList.contains('hidden')) {
+            openPalette(overlay, searchInput, resultsList);
+          } else {
+            closePalette(overlay, searchInput);
+          }
+        }
+      });
+    }
+
+    // Set up local DOM listeners on load and transition
+    function setupPaletteListeners() {
+      const overlay = document.getElementById('command-palette-overlay');
+      const searchInput = document.getElementById('cmd-search');
+      const resultsList = document.getElementById('cmd-results');
+      const trigger = document.getElementById('cmd-palette-trigger');
+
+      if (!overlay || !searchInput || !resultsList) return;
+
+      if (trigger) {
+        trigger.addEventListener('click', () => openPalette(overlay, searchInput, resultsList));
+      }
+
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closePalette(overlay, searchInput);
+      });
+
+      searchInput.addEventListener('keydown', (e) => {
+        const items = getVisibleItems(resultsList);
+        if (!items.length) return;
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const next = (activeIndex + 1) % items.length;
+          updateActive(resultsList, next);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const prev = (activeIndex - 1 + items.length) % items.length;
+          updateActive(resultsList, prev);
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          if (items[activeIndex]) navigateToItem(items[activeIndex], overlay, searchInput);
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          closePalette(overlay, searchInput);
+        }
+      });
+
+      searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase().trim();
+        resultsList.querySelectorAll('.cmd-item').forEach((item) => {
+          const label = item.getAttribute('data-label') || '';
+          if (!query || label.includes(query)) {
+            item.removeAttribute('hidden');
+          } else {
+            item.setAttribute('hidden', '');
+          }
+        });
+        const items = getVisibleItems(resultsList);
+        activeIndex = 0;
+        if (items.length) updateActive(resultsList, 0);
+      });
+
+      resultsList.addEventListener('click', (e) => {
+        const item = e.target.closest('.cmd-item');
+        if (item) navigateToItem(item, overlay, searchInput);
+      });
+    }
+
+    document.addEventListener('astro:page-load', setupPaletteListeners);
+    setupPaletteListeners();
+  })();
+</script>

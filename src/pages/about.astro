@@ -1,0 +1,114 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Timeline from '../components/Timeline.astro';
+
+const milestones = [
+  { year: '2024', title: 'Current Role', description: 'Working on exciting projects in software engineering, building tools and systems that solve real problems.', type: 'career' },
+  { year: '2022', title: 'Started Professional Journey', description: 'Began working in software engineering, focusing on backend systems and distributed architectures.', type: 'career' },
+  { year: '2020', title: 'University', description: 'Pursued computer science with a focus on algorithms, systems design, and software engineering.', type: 'education' },
+];
+
+const interests = [
+  { emoji: '⚙️', title: 'Systems Design', description: 'Distributed systems, scalability patterns, and infrastructure.' },
+  { emoji: '🧠', title: 'Machine Learning', description: 'Applied ML, NLP, and understanding intelligent systems.' },
+  { emoji: '📐', title: 'Algorithms', description: 'Problem solving, optimization, and computational thinking.' },
+  { emoji: '🛠️', title: 'Developer Tools', description: 'Building better workflows, CLIs, and productivity tools.' },
+  { emoji: '📖', title: 'Programming Languages', description: 'Language design, compilers, and type systems.' },
+  { emoji: '🌐', title: 'Open Source', description: 'Contributing to and learning from the open source community.' },
+];
+---
+
+<PageLayout title="About">
+  <!-- Bio -->
+  <div class="prose prose-lg max-w-none mb-16">
+    <p class="text-lg text-[var(--color-text-secondary)] leading-relaxed">
+      I'm a software engineer and researcher with a passion for building thoughtful,
+      well-crafted systems. I enjoy working across the stack — from designing clean APIs and
+      scalable backend architectures to crafting intuitive user interfaces.
+    </p>
+    <p class="text-lg text-[var(--color-text-secondary)] leading-relaxed mt-4">
+      Outside of work, I spend my time reading broadly, exploring new programming languages,
+      and writing about what I learn. This site serves as my personal knowledge base —
+      a place to organize thoughts, share projects, and connect ideas.
+    </p>
+  </div>
+
+  <!-- Timeline -->
+  <section class="mb-16">
+    <h2 class="text-2xl font-bold text-[var(--color-text)] mb-8">Journey</h2>
+    <Timeline items={milestones} />
+  </section>
+
+  <!-- Technical Interests -->
+  <section class="mb-16">
+    <h2 class="text-2xl font-bold text-[var(--color-text)] mb-8">Technical Interests</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {interests.map(interest => (
+        <div class="p-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-accent)] transition-colors duration-200">
+          <span class="text-3xl mb-3 block">{interest.emoji}</span>
+          <h3 class="text-lg font-semibold text-[var(--color-text)] mb-2">{interest.title}</h3>
+          <p class="text-sm text-[var(--color-text-secondary)]">{interest.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="mb-16">
+    <h2 class="text-2xl font-bold text-[var(--color-text)] mb-8">Skills</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div>
+        <h3 class="font-semibold text-[var(--color-text)] mb-3 text-sm uppercase tracking-wider">Languages</h3>
+        <ul class="space-y-2 text-[var(--color-text-secondary)] text-sm">
+          <li>TypeScript / JavaScript</li>
+          <li>Python</li>
+          <li>Go</li>
+          <li>Rust</li>
+          <li>Java</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-[var(--color-text)] mb-3 text-sm uppercase tracking-wider">Frameworks</h3>
+        <ul class="space-y-2 text-[var(--color-text-secondary)] text-sm">
+          <li>React / Next.js</li>
+          <li>Astro</li>
+          <li>Node.js</li>
+          <li>FastAPI</li>
+          <li>Spring Boot</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-[var(--color-text)] mb-3 text-sm uppercase tracking-wider">Tools</h3>
+        <ul class="space-y-2 text-[var(--color-text-secondary)] text-sm">
+          <li>Git / GitHub</li>
+          <li>Docker</li>
+          <li>PostgreSQL</li>
+          <li>Redis</li>
+          <li>Linux</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-[var(--color-text)] mb-3 text-sm uppercase tracking-wider">Practices</h3>
+        <ul class="space-y-2 text-[var(--color-text-secondary)] text-sm">
+          <li>System Design</li>
+          <li>CI/CD</li>
+          <li>Testing</li>
+          <li>Code Review</li>
+          <li>Documentation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Currently Learning -->
+  <section>
+    <h2 class="text-2xl font-bold text-[var(--color-text)] mb-4">Currently Learning</h2>
+    <div class="p-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]">
+      <p class="text-[var(--color-text-secondary)] leading-relaxed">
+        Right now I'm diving deeper into compiler design, exploring the Zig programming language,
+        and studying distributed consensus algorithms. I'm also experimenting with building
+        developer tools and CLI applications.
+      </p>
+    </div>
+  </section>
+</PageLayout>

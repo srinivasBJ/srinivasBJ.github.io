@@ -1,0 +1,58 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import BookCard from '../../components/BookCard.astro';
+import { getCollection } from 'astro:content';
+
+const allReading = await getCollection('reading');
+
+// Group reading by category
+const categories = ['books', 'articles', 'resources', 'recommendations'] as const;
+const groupedReading = categories.reduce((acc, cat) => {
+  acc[cat] = allReading.filter(item => item.data.category === cat);
+  return acc;
+}, {} as Record<typeof categories[number], typeof allReading>);
+---
+
+<PageLayout
+  title="Reading List"
+  description="My curated reading log — reviews, articles, recommendations, and digital resources."
+>
+  <div class="space-y-16">
+    {categories.map(cat => {
+      const items = groupedReading[cat];
+      if (items.length === 0) return null;
+
+      return (
+        <section class="space-y-6">
+          <div class="border-b border-[var(--color-border)] pb-2 flex items-baseline justify-between">
+            <h2 class="text-2xl font-bold tracking-tight text-[var(--color-text)] capitalize">
+              {cat === 'recommendations' ? 'Recommendations' : cat}
+            </h2>
+            <span class="text-xs font-mono text-[var(--color-text-tertiary)] uppercase tracking-wider">
+              {items.length} {items.length === 1 ? 'item' : 'items'}
+            </span>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            {items.map(item => (
+              <BookCard
+                title={item.data.title}
+                author={item.data.author}
+                category={item.data.category}
+                description={item.data.description}
+                rating={item.data.rating}
+                url={item.data.url}
+              />
+            ))}
+          </div>
+        </section>
+      );
+    })}
+
+    {allReading.length === 0 && (
+      <div class="text-center py-12 border border-dashed border-[var(--color-border)] rounded-xl">
+        <p class="text-[var(--color-text-secondary)]">No reading items logged yet. Reading progress is coming soon!</p>
+      </div>
+    )}
+  </div>
+</PageLayout>

@@ -1,0 +1,46 @@
+---
+// ScrollProgress: a thin fixed bar at the very top that indicates scroll progress.
+---
+
+<div
+  class="scroll-progress"
+  role="progressbar"
+  aria-label="Reading progress"
+  aria-valuemin="0"
+  aria-valuemax="100"
+  id="scroll-progress-bar"
+></div>
+
+<script is:inline>
+  (function () {
+    const bar = document.getElementById('scroll-progress-bar');
+    if (!bar) return;
+
+    function updateProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight <= 0) {
+        document.documentElement.style.setProperty('--scroll-progress', '0%');
+        bar.setAttribute('aria-valuenow', '0');
+        return;
+      }
+      const progress = Math.min((scrollTop / docHeight) * 100, 100);
+      document.documentElement.style.setProperty('--scroll-progress', progress + '%');
+      bar.setAttribute('aria-valuenow', String(Math.round(progress)));
+    }
+
+    // Deduplicate scroll listener to prevent multiple triggers after page transitions
+    if (window.__scrollProgressHandler) {
+      window.removeEventListener('scroll', window.__scrollProgressHandler);
+    }
+    window.__scrollProgressHandler = updateProgress;
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    
+    // Wire up for Astro transitions
+    document.addEventListener('astro:page-load', () => {
+      updateProgress();
+    });
+    updateProgress();
+  })();
+</script>

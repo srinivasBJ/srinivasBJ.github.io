@@ -1,0 +1,57 @@
+---
+interface TimelineItem {
+  year: string;
+  title: string;
+  description: string;
+  type: string;
+}
+
+interface Props {
+  items: TimelineItem[];
+}
+
+const { items } = Astro.props;
+
+function getDotColor(type: string): string {
+  switch (type) {
+    case 'education':
+      return 'bg-[var(--color-accent)]';
+    case 'career':
+      return 'bg-emerald-500';
+    case 'achievement':
+      return 'bg-amber-500';
+    default:
+      return 'bg-[var(--color-text-tertiary)]';
+  }
+}
+---
+
+<div class="relative" role="list" aria-label="Timeline">
+  {items.map((item) => (
+    <div class="relative ml-6 pl-6 pb-8 last:pb-0 border-l-2 border-[var(--color-border)]" role="listitem">
+      <!-- Dot -->
+      <div
+        class:list={[
+          'absolute -left-[7px] top-1.5 w-3 h-3 rounded-full ring-4 ring-[var(--color-bg)]',
+          getDotColor(item.type),
+        ]}
+        aria-hidden="true"
+      />
+
+      <!-- Year -->
+      <span class="inline-block text-xs font-mono font-medium text-[var(--color-text-tertiary)] mb-1">
+        {item.year}
+      </span>
+
+      <!-- Title -->
+      <h3 class="text-base font-semibold text-[var(--color-text)]">
+        {item.title}
+      </h3>
+
+      <!-- Description -->
+      <p class="text-sm text-[var(--color-text-secondary)] mt-1 leading-relaxed">
+        {item.description}
+      </p>
+    </div>
+  ))}
+</div>
