@@ -1,0 +1,22 @@
+---
+interface Props {
+  tags: string[];
+  basePath?: string;
+}
+
+const { tags, basePath = '/writing/tags' } = Astro.props;
+---
+
+{tags.length > 0 && (
+  <div class="flex flex-wrap gap-2" role="list" aria-label="Tags">
+    {tags.map((tag) => (
+      <a
+        href={`${basePath}/${tag.toLowerCase()}`}
+        class="text-xs px-2.5 py-1 rounded-full bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] hover:bg-[var(--color-accent-subtle)] transition-colors duration-200"
+        role="listitem"
+      >
+        {tag}
+      </a>
+    ))}
+  </div>
+)}

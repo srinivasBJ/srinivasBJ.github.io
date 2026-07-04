@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .filter(p => p.data.featured)
+  .sort((a, b) => (a.data.order || 0) - (b.data.order || 0))
+  .slice(0, 3);
+
+const allPosts = await getCollection('writing');
+const latestPosts = allPosts
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+function getReadingTime(text: string): string {
+  const words = text?.split(/\s+/).length || 0;
+  return `${Math.ceil(words / 200)} min read`;
+}
+---
+
+<BaseLayout title="Srinivas BJ — Engineer · Researcher · Builder">
+  <!-- Hero Section -->
+  <section class="max-w-4xl mx-auto px-6 pt-32 pb-20 md:pt-40 md:pb-28">
+    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-[var(--color-text)] animate-fade-in-up">
+      Srinivas BJ
+    </h1>
+    <p class="text-xl md:text-2xl text-[var(--color-text-secondary)] mt-6 animate-fade-in-up" style="animation-delay: 100ms;">
+      Engineer · Researcher · Builder
+    </p>
+    <p class="text-lg text-[var(--color-text-secondary)] mt-6 max-w-2xl animate-fade-in-up" style="animation-delay: 200ms;">
+      I build software, explore ideas, and document what I learn along the way.
+      This site is my digital garden — a place for projects, writing, research notes, and reading lists.
+    </p>
+  </section>
+
+  <!-- Now Section -->
+  <section class="bg-[var(--color-bg-secondary)] py-16">
+    <div class="max-w-4xl mx-auto px-6">
+      <span class="font-mono text-sm text-[var(--color-accent)] uppercase tracking-wider">/now</span>
+      <div class="mt-4 p-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]">
+        <p class="text-[var(--color-text-secondary)] leading-relaxed">
+          Currently focused on building tools for knowledge management, exploring systems design patterns,
+          and deepening my understanding of distributed systems. Reading about compilers and language design
+          in my spare time.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section class="py-20 md:py-28">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex items-center justify-between mb-10">
+        <h2 class="text-2xl font-bold text-[var(--color-text)]">Featured Projects</h2>
+        <a href="/projects" class="text-[var(--color-accent)] hover:underline text-sm font-medium">
+          View all →
+        </a>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {featuredProjects.map(project => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            slug={project.id}
+            tags={project.data.tags}
+            featured={project.data.featured}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Writing -->
+  <section class="py-20 md:py-28 bg-[var(--color-bg-secondary)]">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="flex items-center justify-between mb-10">
+        <h2 class="text-2xl font-bold text-[var(--color-text)]">Latest Writing</h2>
+        <a href="/writing" class="text-[var(--color-accent)] hover:underline text-sm font-medium">
+          View all →
+        </a>
+      </div>
+      <div class="divide-y divide-[var(--color-border)]">
+        {latestPosts.map(post => (
+          <PostCard
+            title={post.data.title}
+            description={post.data.description}
+            slug={post.id}
+            date={post.data.date}
+            readingTime={getReadingTime(post.body || '')}
+            tags={post.data.tags}
+            category={post.data.category}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Research Teaser -->
+  <section class="py-20 md:py-28">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="p-8 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]">
+        <h2 class="text-2xl font-bold text-[var(--color-text)] mb-4">Research Notes</h2>
+        <p class="text-[var(--color-text-secondary)] mb-6 leading-relaxed">
+          Deep dives into topics I'm studying — from systems architecture and algorithm analysis
+          to programming language theory and beyond.
+        </p>
+        <a href="/research" class="inline-flex items-center text-[var(--color-accent)] hover:underline font-medium">
+          Explore research notes →
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

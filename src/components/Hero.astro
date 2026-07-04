@@ -1,0 +1,27 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  large?: boolean;
+}
+
+const { title, subtitle, large = false } = Astro.props;
+---
+
+<section class="animate-fade-in-up">
+  <h1
+    class:list={[
+      'font-bold tracking-tight text-[var(--color-text)]',
+      large
+        ? 'text-5xl md:text-6xl lg:text-7xl'
+        : 'text-4xl md:text-5xl lg:text-6xl',
+    ]}
+  >
+    {title}
+  </h1>
+  {subtitle && (
+    <p class="text-lg md:text-xl text-[var(--color-text-secondary)] mt-4 max-w-2xl leading-relaxed">
+      {subtitle}
+    </p>
+  )}
+</section>

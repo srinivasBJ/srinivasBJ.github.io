@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://srinivasbj.github.io/sitemap-index.xml
+Host: https://srinivasbj.github.io

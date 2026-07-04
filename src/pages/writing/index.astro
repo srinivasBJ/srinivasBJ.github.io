@@ -1,0 +1,49 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('writing');
+const sortedPosts = posts
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+function getReadingTime(text: string): string {
+  const words = text?.split(/\s+/).length || 0;
+  return `${Math.ceil(words / 200)} min read`;
+}
+---
+
+<PageLayout title="Writing" description="Thoughts, tutorials, and explorations.">
+  <div class="flex items-center justify-between mb-10">
+    <p class="text-[var(--color-text-secondary)]">
+      {sortedPosts.length} post{sortedPosts.length !== 1 ? 's' : ''}
+    </p>
+    <a
+      href="/rss.xml"
+      class="inline-flex items-center gap-2 text-sm text-[var(--color-accent)] hover:underline font-medium"
+      target="_blank"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 11a9 9 0 0 1 9 9"></path>
+        <path d="M4 4a16 16 0 0 1 16 16"></path>
+        <circle cx="5" cy="19" r="1"></circle>
+      </svg>
+      RSS Feed
+    </a>
+  </div>
+
+  <div class="divide-y divide-[var(--color-border)]">
+    {sortedPosts.map(post => (
+      <PostCard
+        title={post.data.title}
+        description={post.data.description}
+        slug={post.id}
+        date={post.data.date}
+        readingTime={getReadingTime(post.body || '')}
+        tags={post.data.tags}
+        category={post.data.category}
+      />
+    ))}
+  </div>
+</PageLayout>
