@@ -3,7 +3,7 @@ backend:
   repo: srinivasBJ/srinivasBJ.github.io
   branch: main
   site_domain: srinivasbj.github.io
-  base_url: https://srinivasbj-oauth.workers.dev # Change this to your deployed Cloudflare Worker / Vercel Gateway URL
+  base_url: https://restless-lab-a40d.ssai603174.workers.dev
   auth_endpoint: auth
 
 # Enable Git Editorial Workflow (Drafts, Reviews, Publishing branches)
