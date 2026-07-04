@@ -20,7 +20,7 @@
     <!-- Strict authentication gate block -->
     <script>
       (async function () {
-        // Same-origin popup redirect handler
+        // Same-origin redirect handler (for both popup and full-page redirect flows)
         const params = new URLSearchParams(window.location.search);
         const token = params.get('token');
         if (token) {
@@ -30,10 +30,13 @@
           }));
           if (window.opener) {
             window.opener.location.reload();
+            window.close();
+            return;
+          } else {
+            // Clean the URL query params without reloading the page
+            const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
           }
-          window.close();
-          window.stop();
-          return;
         }
 
         const userStr = localStorage.getItem('decap-cms-user');
@@ -72,6 +75,16 @@
             localStorage.removeItem('decap-cms-user');
           }
         }
+
+        // Intercept Login button clicks to run a popup-free redirect flow
+        document.addEventListener('click', function (e) {
+          const loginButton = e.target.closest('button');
+          if (loginButton && (loginButton.innerText.includes('Login with GitHub') || loginButton.textContent.includes('Login with GitHub'))) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = "https://restless-lab-a40d.ssai603174.workers.dev/auth";
+          }
+        }, true); // Capture phase to run before Decap CMS click listener
       })();
     </script>
 
