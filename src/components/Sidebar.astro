@@ -23,17 +23,20 @@ function isActive(href: string): boolean {
 
 <div class="flex flex-col h-full justify-between">
   <div class="space-y-8">
-    <!-- Wordmark / Logo -->
-    <div>
-      <a
-        href="/"
-        class="font-serif text-xl font-bold tracking-tight text-[var(--color-text)] hover:opacity-85 transition-opacity"
-      >
-        srinivasBJ
-      </a>
-      <span class="block text-[10px] font-mono text-[var(--color-text-tertiary)] uppercase tracking-wider mt-1">
-        Living Notes
-      </span>
+    <!-- Wordmark / Logo + Theme Toggle -->
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        <a
+          href="/"
+          class="font-serif text-xl font-bold tracking-tight text-[var(--color-text)] hover:opacity-85 transition-opacity"
+        >
+          srinivasBJ
+        </a>
+        <span class="block text-[10px] font-mono text-[var(--color-text-tertiary)] uppercase tracking-wider mt-1">
+          Living Notes
+        </span>
+      </div>
+      <ThemeToggle />
     </div>
 
     <!-- Search Button Trigger -->
@@ -72,8 +75,8 @@ function isActive(href: string): boolean {
     </nav>
   </div>
 
-  <!-- Bottom Details: GitHub Link + Theme Toggle -->
-  <div class="pt-6 border-t border-[var(--color-border)] space-y-4">
+  <!-- Bottom Details: GitHub Link -->
+  <div class="pt-6 border-t border-[var(--color-border)]">
     <!-- GitHub Profile -->
     <a
       href="https://github.com/srinivasBJ"
@@ -86,10 +89,5 @@ function isActive(href: string): boolean {
       </svg>
       <span class="font-medium">GitHub</span>
     </a>
-
-    <!-- Theme Toggle Alignment -->
-    <div class="flex items-center px-1">
-      <ThemeToggle />
-    </div>
   </div>
 </div>

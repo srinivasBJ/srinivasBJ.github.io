@@ -11,9 +11,9 @@ interface Props {
 const { title, description, slug, tags, timeline } = Astro.props;
 ---
 
-<div class="p-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-border-hover)] transition-all duration-200 group relative flex flex-col justify-between">
+<div class="p-8 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-border-hover)] transition-all duration-200 group relative flex flex-col justify-between">
   <div>
-    <div class="flex items-center justify-between gap-2 mb-3">
+    <div class="flex items-center justify-between gap-2 mb-4">
       {timeline && (
         <span class="text-xs font-mono text-[var(--color-text-tertiary)]">{timeline}</span>
       )}
@@ -22,14 +22,14 @@ const { title, description, slug, tags, timeline } = Astro.props;
       </span>
     </div>
 
-    <h3 class="font-serif text-lg font-bold text-[var(--color-text)] group-hover:text-[var(--color-accent-primary)] transition-colors">
+    <h3 class="font-serif text-xl font-bold text-[var(--color-text)] group-hover:text-[var(--color-accent-primary)] transition-colors">
       <a href={`/projects/${slug}`} class="focus:outline-none">
         {title}
         <span class="absolute inset-0" aria-hidden="true"></span>
       </a>
     </h3>
 
-    <p class="text-xs text-[var(--color-text-secondary)] mt-2 leading-relaxed line-clamp-3">
+    <p class="text-sm text-[var(--color-text-secondary)] mt-2 leading-relaxed line-clamp-3">
       {description}
     </p>
   </div>
