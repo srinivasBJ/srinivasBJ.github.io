@@ -7,16 +7,24 @@ const projects = await getCollection('projects');
 const sortedProjects = projects.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 ---
 
-<PageLayout title="Projects" description="A collection of things I've built.">
-  <div class="grid md:grid-cols-2 gap-6">
+<PageLayout
+  title="Projects"
+  description="Deep dives into software architectures, distributed systems, command-line utilities, and web experiments."
+>
+  <div class="grid sm:grid-cols-2 gap-6 mt-8">
     {sortedProjects.map(project => (
       <ProjectCard
         title={project.data.title}
         description={project.data.description}
         slug={project.id}
         tags={project.data.tags}
+        timeline={project.data.timeline}
         featured={project.data.featured}
       />
     ))}
+
+    {sortedProjects.length === 0 && (
+      <p class="text-[var(--color-text-tertiary)] italic py-12 text-center col-span-2">No projects logged yet.</p>
+    )}
   </div>
 </PageLayout>

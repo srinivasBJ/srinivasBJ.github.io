@@ -4,7 +4,7 @@ import PageLayout from '../../../layouts/PageLayout.astro';
 import PostCard from '../../../components/PostCard.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('writing');
+  const posts = await getCollection('blog');
   const activePosts = posts.filter(p => !p.data.draft);
   const tags = [...new Set(activePosts.flatMap(p => p.data.tags || []))];
 
@@ -28,16 +28,16 @@ function getReadingTime(text: string): string {
 ---
 
 <PageLayout
-  title={`Posts Tagged: #${tag}`}
-  description={`Browse all articles categorized under tag #${tag}.`}
+  title={`Tag: #${tag}`}
+  description={`Browse articles categorized under tag #${tag}.`}
   breadcrumbs={[
-    { label: 'Writing', href: '/writing' },
-    { label: `#${tag}`, href: `/writing/tags/${tag}` }
+    { label: 'Blog', href: '/blog' },
+    { label: `#${tag}`, href: `/blog/tags/${tag}` }
   ]}
 >
   <div class="mb-8">
-    <a href="/writing" class="text-sm text-[var(--color-accent)] hover:underline flex items-center gap-1">
-      ← Back to all articles
+    <a href="/blog" class="text-xs font-mono text-[var(--color-accent-primary)] hover:underline flex items-center gap-1">
+      ← BACK TO ALL ARTICLES
     </a>
   </div>
 
@@ -49,8 +49,7 @@ function getReadingTime(text: string): string {
         slug={post.id}
         date={post.data.date}
         readingTime={getReadingTime(post.body || '')}
-        tags={post.data.tags}
-        category={post.data.category}
+        categories={post.data.categories}
       />
     ))}
   </div>

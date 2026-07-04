@@ -3,7 +3,6 @@ title: "Designing Data-Intensive Applications"
 author: "Martin Kleppmann"
 category: "books"
 description: "The definitive guide to the principles and practicalities of data systems — from storage engines to distributed consensus."
-rating: 5
 tags: ["distributed-systems", "databases", "system-design"]
 ---
 

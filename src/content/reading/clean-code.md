@@ -3,7 +3,6 @@ title: "Clean Code"
 author: "Robert C. Martin"
 category: "books"
 description: "A handbook of agile software craftsmanship that fundamentally changed how I think about writing code."
-rating: 4
 tags: ["software-engineering", "craftsmanship"]
 ---
 

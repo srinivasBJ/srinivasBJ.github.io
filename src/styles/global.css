@@ -1,39 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 /* ============================================================
-   DESIGN SYSTEM — Personal Knowledge Website
+   DESIGN SYSTEM — Personal Publishing Platform
    ============================================================
-   Stone-based neutrals · Indigo accent · Inter + JetBrains Mono
+   Lora (Serif headers) · Inter (Sans body) · Stone neutrals
    ============================================================ */
 
 /* --- Tailwind v4 Theme Extension --- */
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
 
-  --color-accent-50: #eef2ff;
-  --color-accent-100: #e0e7ff;
-  --color-accent-200: #c7d2fe;
-  --color-accent-300: #a5b4fc;
-  --color-accent-400: #818cf8;
-  --color-accent-500: #6366f1;
-  --color-accent-600: #4f46e5;
-  --color-accent-700: #4338ca;
-  --color-accent-800: #3730a3;
-  --color-accent-900: #312e81;
+  --color-accent-50: #f5f3ff;
+  --color-accent-100: #ede9fe;
+  --color-accent-200: #ddd6fe;
+  --color-accent-300: #c084fc;
+  --color-accent-500: #a855f7;
+  --color-accent-600: #7c3aed;
+  --color-accent-700: #6d28d9;
 
-  --color-stone-50: #fafaf9;
-  --color-stone-100: #f5f5f4;
-  --color-stone-200: #e7e5e4;
-  --color-stone-300: #d6d3d1;
-  --color-stone-400: #a8a29e;
-  --color-stone-500: #78716c;
-  --color-stone-600: #57534e;
-  --color-stone-700: #44403c;
-  --color-stone-800: #292524;
-  --color-stone-900: #1c1917;
-  --color-stone-950: #0c0a09;
+  --color-stone-50: #fcfbf9; /* Soft book paper background */
+  --color-stone-100: #f5f4f0;
+  --color-stone-200: #e6e4dc;
+  --color-stone-300: #d5d2c4;
+  --color-stone-400: #a7a393;
+  --color-stone-500: #7a7664;
+  --color-stone-600: #5c594c;
+  --color-stone-700: #424036;
+  --color-stone-800: #292822;
+  --color-stone-900: #1b1b17;
+  --color-stone-950: #0b0a09; /* Deep charcoal dark mode */
 }
 
 /* ============================================================
@@ -55,9 +53,10 @@
   --color-border-hover: var(--color-stone-300);
 
   /* Accent */
-  --color-accent: var(--color-accent-600);
-  --color-accent-hover: var(--color-accent-700);
-  --color-accent-subtle: var(--color-accent-50);
+  --color-accent: var(--color-stone-900); /* Restrained, high contrast accent */
+  --color-accent-hover: var(--color-stone-700);
+  --color-accent-subtle: var(--color-stone-100);
+  --color-accent-primary: var(--color-accent-600); /* Purple reserved for highlighting */
 
   /* Surface */
   --color-surface: #ffffff;
@@ -69,10 +68,9 @@
   --color-code-text: var(--color-stone-800);
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.02);
+  --shadow-md: 0 2px 4px 0 rgb(0 0 0 / 0.02), 0 1px 2px 0 rgb(0 0 0 / 0.02);
+  --shadow-lg: 0 4px 8px 0 rgb(0 0 0 / 0.02);
 
   /* Scroll progress */
   --scroll-progress: 0%;
@@ -83,31 +81,31 @@
    ============================================================ */
 .dark {
   --color-bg: var(--color-stone-950);
-  --color-bg-secondary: var(--color-stone-900);
-  --color-bg-tertiary: var(--color-stone-800);
+  --color-bg-secondary: #121110;
+  --color-bg-tertiary: #1c1a19;
 
-  --color-text: var(--color-stone-50);
-  --color-text-secondary: var(--color-stone-400);
-  --color-text-tertiary: var(--color-stone-500);
+  --color-text: #eae6df;
+  --color-text-secondary: #b2ada1;
+  --color-text-tertiary: #706b5e;
 
-  --color-border: var(--color-stone-800);
-  --color-border-hover: var(--color-stone-700);
+  --color-border: #23211f;
+  --color-border-hover: #33302c;
 
-  --color-accent: var(--color-accent-400);
-  --color-accent-hover: var(--color-accent-300);
-  --color-accent-subtle: rgb(99 102 241 / 0.1);
+  --color-accent: #eae6df;
+  --color-accent-hover: #ffffff;
+  --color-accent-subtle: #121110;
+  --color-accent-primary: var(--color-accent-300);
 
-  --color-surface: var(--color-stone-900);
-  --color-surface-hover: var(--color-stone-800);
-  --color-surface-elevated: var(--color-stone-800);
+  --color-surface: #121110;
+  --color-surface-hover: #1c1a19;
+  --color-surface-elevated: #1c1a19;
 
-  --color-code-bg: var(--color-stone-800);
-  --color-code-text: var(--color-stone-200);
+  --color-code-bg: #121110;
+  --color-code-text: #eae6df;
 
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.2);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.2);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.2);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.15);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.2);
 }
 
 /* ============================================================
@@ -129,15 +127,15 @@ body {
   font-family: var(--font-sans);
   background-color: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.7;
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 ::selection {
-  background-color: var(--color-accent);
-  color: white;
+  background-color: var(--color-border-hover);
+  color: var(--color-text);
 }
 
 /* ============================================================
@@ -149,92 +147,77 @@ body {
   left: 0;
   width: var(--scroll-progress);
   height: 2px;
-  background: var(--color-accent);
+  background: var(--color-text-secondary);
   z-index: 9999;
   transition: width 0.1s linear;
 }
 
 /* ============================================================
-   SKIP TO CONTENT
-   ============================================================ */
-.skip-to-content {
-  position: absolute;
-  top: -100%;
-  left: 1rem;
-  z-index: 9999;
-  padding: 0.5rem 1rem;
-  background: var(--color-accent);
-  color: white;
-  border-radius: 0 0 0.5rem 0.5rem;
-  font-weight: 500;
-  transition: top 0.2s ease;
-}
-
-.skip-to-content:focus {
-  top: 0;
-}
-
-/* ============================================================
-   PROSE TYPOGRAPHY — Article Content
+   PROSE TYPOGRAPHY — Editorial & Calm Reading Experience
    ============================================================ */
 .prose {
   max-width: 65ch;
   color: var(--color-text);
   font-size: 1.0625rem;
-  line-height: 1.8;
+  line-height: 1.85;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-family: var(--font-serif);
+  color: var(--color-text);
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .prose h1 {
   font-size: 2.25rem;
-  font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.25;
   margin-top: 0;
   margin-bottom: 1.5rem;
-  letter-spacing: -0.025em;
+  font-weight: 700;
 }
 
 .prose h2 {
   font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.3;
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-  letter-spacing: -0.02em;
+  line-height: 1.35;
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--color-border);
 }
 
 .prose h3 {
   font-size: 1.25rem;
-  font-weight: 600;
   line-height: 1.4;
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 .prose h4 {
   font-size: 1.125rem;
-  font-weight: 600;
-  line-height: 1.4;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
 }
 
 .prose p {
   margin-top: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
+  text-align: justify;
 }
 
 .prose a {
-  color: var(--color-accent);
+  color: var(--color-text);
   text-decoration: underline;
   text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  text-underline-offset: 3px;
+  transition: opacity 0.15s ease;
 }
 
 .prose a:hover {
-  color: var(--color-accent-hover);
+  opacity: 0.75;
 }
 
 .prose strong {
@@ -245,7 +228,7 @@ body {
 .prose ul,
 .prose ol {
   margin-top: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
   padding-left: 1.5rem;
 }
 
@@ -253,18 +236,15 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.prose li::marker {
-  color: var(--color-text-tertiary);
-}
-
 .prose blockquote {
-  margin: 1.5rem 0;
-  padding: 0.75rem 1.25rem;
-  border-left: 3px solid var(--color-accent);
-  background: var(--color-bg-secondary);
-  border-radius: 0 0.5rem 0.5rem 0;
+  margin: 2.5rem 0;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--color-border-hover);
   color: var(--color-text-secondary);
   font-style: italic;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.8;
 }
 
 .prose blockquote p:last-child {
@@ -272,7 +252,7 @@ body {
 }
 
 .prose hr {
-  margin: 3rem 0;
+  margin: 3.5rem 0;
   border: none;
   border-top: 1px solid var(--color-border);
 }
@@ -280,15 +260,17 @@ body {
 .prose img {
   max-width: 100%;
   height: auto;
-  border-radius: 0.75rem;
-  margin: 2rem 0;
+  border-radius: 4px;
+  margin: 2.5rem 0;
+  border: 1px solid var(--color-border);
 }
 
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  margin: 2rem 0;
+  margin: 2.5rem 0;
   font-size: 0.9375rem;
+  font-family: var(--font-sans);
 }
 
 .prose th {
@@ -297,11 +279,13 @@ body {
   padding: 0.75rem 1rem;
   border-bottom: 2px solid var(--color-border);
   color: var(--color-text);
+  background-color: var(--color-bg-secondary);
 }
 
 .prose td {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
 }
 
 .prose tr:last-child td {
@@ -312,10 +296,10 @@ body {
 .prose code:not(pre code) {
   font-family: var(--font-mono);
   font-size: 0.875em;
-  padding: 0.15em 0.4em;
+  padding: 0.15em 0.35em;
   background: var(--color-code-bg);
   color: var(--color-code-text);
-  border-radius: 0.25rem;
+  border-radius: 3px;
   font-weight: 500;
 }
 
@@ -323,13 +307,13 @@ body {
 .prose pre {
   font-family: var(--font-mono);
   font-size: 0.875rem;
-  line-height: 1.7;
-  padding: 1.25rem 1.5rem;
-  margin: 1.5rem 0;
-  border-radius: 0.75rem;
+  line-height: 1.65;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 4px;
   overflow-x: auto;
   border: 1px solid var(--color-border);
-  position: relative;
+  background-color: var(--color-bg-secondary) !important;
 }
 
 .prose pre code {
@@ -340,67 +324,42 @@ body {
   border-radius: 0;
 }
 
+/* Footnotes styling */
+.prose .footnotes {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.5rem;
+  margin-top: 4rem;
+}
+
+.prose .footnotes ol {
+  padding-left: 1.25rem;
+}
+
+.prose .footnotes li {
+  margin-bottom: 0.75rem;
+}
+
 /* ============================================================
    UTILITIES
    ============================================================ */
 
-/* Fade in animation */
-@keyframes fadeInUp {
+/* Quiet fade in */
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(1rem);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.5s ease-out forwards;
-  opacity: 0;
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
 }
 
-.animate-delay-100 { animation-delay: 0.1s; }
-.animate-delay-200 { animation-delay: 0.2s; }
-.animate-delay-300 { animation-delay: 0.3s; }
-.animate-delay-400 { animation-delay: 0.4s; }
-
-/* Hover lift */
-.hover-lift {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-}
-
-/* Glass effect */
-.glass {
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-}
-
-/* Text gradient */
-.text-gradient {
-  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-400, #818cf8));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  html {
-    scroll-behavior: auto;
-  }
+/* Smooth layout transition */
+.transition-layout {
+  transition: padding-left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }

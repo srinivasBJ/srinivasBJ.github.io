@@ -3,7 +3,7 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import PostCard from '../../components/PostCard.astro';
 import { getCollection } from 'astro:content';
 
-const posts = await getCollection('writing');
+const posts = await getCollection('blog');
 const sortedPosts = posts
   .filter(p => !p.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -14,17 +14,20 @@ function getReadingTime(text: string): string {
 }
 ---
 
-<PageLayout title="Writing" description="Thoughts, tutorials, and explorations.">
-  <div class="flex items-center justify-between mb-10">
-    <p class="text-[var(--color-text-secondary)]">
-      {sortedPosts.length} post{sortedPosts.length !== 1 ? 's' : ''}
-    </p>
+<PageLayout
+  title="Blog"
+  description="Technical essays, system designs, programming paradigms, and computing reflections."
+>
+  <div class="flex items-center justify-between mb-8 pb-4 border-b border-[var(--color-border)]">
+    <span class="text-xs font-mono text-[var(--color-text-tertiary)] uppercase tracking-wider">
+      {sortedPosts.length} post{sortedPosts.length !== 1 ? 's' : ''} published
+    </span>
     <a
       href="/rss.xml"
-      class="inline-flex items-center gap-2 text-sm text-[var(--color-accent)] hover:underline font-medium"
+      class="inline-flex items-center gap-1.5 text-xs font-mono text-[var(--color-accent-primary)] hover:underline uppercase tracking-wider"
       target="_blank"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M4 11a9 9 0 0 1 9 9"></path>
         <path d="M4 4a16 16 0 0 1 16 16"></path>
         <circle cx="5" cy="19" r="1"></circle>
@@ -41,9 +44,12 @@ function getReadingTime(text: string): string {
         slug={post.id}
         date={post.data.date}
         readingTime={getReadingTime(post.body || '')}
-        tags={post.data.tags}
-        category={post.data.category}
+        categories={post.data.categories}
       />
     ))}
+
+    {sortedPosts.length === 0 && (
+      <p class="text-[var(--color-text-tertiary)] italic py-12 text-center">No blog articles published yet.</p>
+    )}
   </div>
 </PageLayout>

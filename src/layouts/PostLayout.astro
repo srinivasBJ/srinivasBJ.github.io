@@ -1,7 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import TableOfContents from '../components/TableOfContents.astro';
-import TagList from '../components/TagList.astro';
 import PrevNextNav from '../components/PrevNextNav.astro';
 import CopyCodeButton from '../components/CopyCodeButton.astro';
 
@@ -10,9 +9,10 @@ interface Props {
     title: string;
     description: string;
     date: Date;
-    category: string;
-    tags: string[];
+    categories?: string[];
+    tags?: string[];
     draft?: boolean;
+    pinned?: boolean;
   };
   headings: { depth: number; slug: string; text: string }[];
   prev?: { title: string; slug: string } | null;
@@ -21,7 +21,6 @@ interface Props {
 }
 
 const { frontmatter, headings, prev, next, readingTime } = Astro.props;
-
 const formattedDate = new Date(frontmatter.date).toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
@@ -33,57 +32,85 @@ const formattedDate = new Date(frontmatter.date).toLocaleDateString('en-US', {
   title={frontmatter.title}
   description={frontmatter.description}
   article={true}
-  publishDate={new Date(frontmatter.date)}
+  publishDate={frontmatter.date}
 >
-  <div class="max-w-4xl mx-auto px-6 py-16">
+  <div class="max-w-5xl mx-auto px-6 py-12 md:py-20 animate-fade-in">
+    <!-- Breadcrumbs / Back Link -->
+    <div class="mb-8">
+      <a
+        href="/blog"
+        class="text-xs font-mono text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors inline-flex items-center gap-1.5"
+      >
+        ← BACK TO BLOG
+      </a>
+    </div>
+
     <!-- Article Header -->
-    <header class="mb-10">
-      <h1 class="text-3xl md:text-4xl font-bold tracking-tight">
-        {frontmatter.title}
-      </h1>
-
-      <div class="mt-4 flex flex-wrap items-center gap-3 text-sm text-[var(--color-text-secondary)]">
-        <time datetime={new Date(frontmatter.date).toISOString()}>
-          {formattedDate}
-        </time>
-        <span class="text-[var(--color-border)]">·</span>
-        <span>{readingTime}</span>
-        <span class="text-[var(--color-border)]">·</span>
-        <span
-          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--color-accent)]/10 text-[var(--color-accent)]"
-        >
-          {frontmatter.category}
-        </span>
-      </div>
-
-      {frontmatter.tags.length > 0 && (
-        <div class="mt-4">
-          <TagList tags={frontmatter.tags} />
+    <header class="mb-12 max-w-[65ch]">
+      {frontmatter.categories && frontmatter.categories.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-4">
+          {frontmatter.categories.map((cat) => (
+            <a
+              href={`/blog/categories/${cat}`}
+              class="text-xs font-mono font-medium text-[var(--color-accent-primary)] hover:underline uppercase tracking-wider"
+            >
+              {cat}
+            </a>
+          ))}
         </div>
       )}
+      <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[var(--color-text)] leading-tight">
+        {frontmatter.title}
+      </h1>
+      <p class="mt-4 text-base md:text-lg text-[var(--color-text-secondary)] font-normal leading-relaxed">
+        {frontmatter.description}
+      </p>
+
+      <!-- Meta information -->
+      <div class="mt-6 flex flex-wrap items-center gap-4 text-xs font-mono text-[var(--color-text-tertiary)] border-t border-[var(--color-border)] pt-4">
+        <time datetime={frontmatter.date.toISOString()}>
+          {formattedDate}
+        </time>
+        <span>•</span>
+        <span>{readingTime}</span>
+      </div>
     </header>
 
-    <!-- Content Grid: Article + TOC Sidebar -->
-    <div class="grid grid-cols-1 lg:grid-cols-[1fr_220px] gap-12">
-      <!-- Article Content -->
-      <article class="prose">
+    <!-- Two-column content layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-12 items-start">
+      <!-- Article Prose -->
+      <article class="prose min-w-0">
         <slot />
       </article>
 
-      <!-- Table of Contents Sidebar (desktop only) -->
-      {headings.length > 0 && (
-        <aside class="hidden lg:block">
-          <div class="sticky top-24">
-            <TableOfContents headings={headings} />
-          </div>
-        </aside>
-      )}
+      <!-- Sticky TOC Column -->
+      <aside class="hidden lg:block sticky top-24 shrink-0">
+        <TableOfContents headings={headings} />
+      </aside>
     </div>
 
-    <!-- Previous / Next Navigation -->
-    <PrevNextNav prev={prev} next={next} />
+    <!-- Tags footer -->
+    {frontmatter.tags && frontmatter.tags.length > 0 && (
+      <div class="mt-12 pt-6 border-t border-[var(--color-border)] max-w-[65ch]">
+        <div class="flex flex-wrap gap-2 items-center">
+          <span class="text-xs font-mono text-[var(--color-text-tertiary)] uppercase tracking-wider">Tags:</span>
+          {frontmatter.tags.map((tag) => (
+            <a
+              href={`/blog/tags/${tag}`}
+              class="text-xs px-2.5 py-0.5 rounded-full bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors border border-[var(--color-border)]"
+            >
+              #{tag}
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Navigation Prev/Next -->
+    <div class="max-w-[65ch]">
+      <PrevNextNav prev={prev} next={next} />
+    </div>
   </div>
 
-  <!-- Copy Code Button (adds functionality to all code blocks) -->
   <CopyCodeButton />
 </BaseLayout>

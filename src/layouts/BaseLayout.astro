@@ -1,7 +1,6 @@
 ---
 import '../styles/global.css';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Sidebar from '../components/Sidebar.astro';
 import ScrollProgress from '../components/ScrollProgress.astro';
 import BackToTop from '../components/BackToTop.astro';
 import CommandPalette from '../components/CommandPalette.astro';
@@ -17,15 +16,15 @@ interface Props {
 
 const {
   title,
-  description = 'Personal website and digital garden of an engineer, researcher, and lifelong learner.',
+  description = 'Personal publishing platform and digital garden of srinivasBJ.',
   image,
   article = false,
   publishDate,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const siteName = 'Your Name';
-const fullTitle = `${title} | ${siteName}`;
+const siteName = 'srinivasBJ';
+const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
 ---
 
 <!DOCTYPE html>
@@ -70,8 +69,8 @@ const fullTitle = `${title} | ${siteName}`;
     {image && <meta name="twitter:image" content={new URL(image, Astro.site)} />}
 
     <!-- Theme Color -->
-    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b0a09" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fcfbf9" media="(prefers-color-scheme: light)" />
 
     <!-- Prevent flash of wrong theme -->
     <script is:inline>
@@ -94,25 +93,126 @@ const fullTitle = `${title} | ${siteName}`;
     <ClientRouter />
   </head>
   <body
-    class="bg-[var(--color-bg)] text-[var(--color-text)] font-sans min-h-screen flex flex-col antialiased"
+    class="bg-[var(--color-bg)] text-[var(--color-text)] font-sans min-h-screen flex flex-col antialiased transition-colors duration-200"
   >
     <!-- Skip to content -->
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-[var(--color-accent)] focus:text-white focus:outline-none"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-[var(--color-text)] focus:text-[var(--color-bg)] focus:outline-none"
     >
       Skip to content
     </a>
 
     <ScrollProgress />
-    <Header />
 
-    <main id="main-content" class="flex-1">
-      <slot />
-    </main>
+    <!-- Permanent Sidebar (Desktop) -->
+    <aside class="fixed top-0 left-0 bottom-0 w-64 border-r border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-8 z-40 hidden md:block">
+      <Sidebar />
+    </aside>
 
-    <Footer />
+    <!-- Mobile Top Header -->
+    <header class="sticky top-0 w-full z-30 bg-[var(--color-bg)]/90 backdrop-blur-md border-b border-[var(--color-border)] px-6 h-14 flex items-center justify-between md:hidden">
+      <a href="/" class="font-serif font-bold text-lg text-[var(--color-text)]">
+        srinivasBJ
+      </a>
+      <button
+        id="mobile-menu-toggle"
+        type="button"
+        class="p-2 rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors cursor-pointer"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu-drawer"
+      >
+        <svg class="w-5 h-5 text-[var(--color-text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div
+      id="mobile-drawer-overlay"
+      class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs transition-opacity duration-200 hidden md:hidden"
+      role="presentation"
+    >
+      <aside
+        id="mobile-menu-drawer"
+        class="w-64 h-full bg-[var(--color-bg)] border-r border-[var(--color-border)] p-8 flex flex-col justify-between transform -translate-x-full transition-transform duration-200"
+      >
+        <!-- Mobile Sidebar Close Header -->
+        <div class="flex items-center justify-between mb-8 md:hidden">
+          <span class="font-serif font-bold text-lg">Menu</span>
+          <button
+            id="mobile-menu-close"
+            type="button"
+            class="p-2 rounded-lg hover:bg-[var(--color-bg-secondary)] transition-colors cursor-pointer"
+            aria-label="Close menu"
+          >
+            <svg class="w-5 h-5 text-[var(--color-text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto">
+          <Sidebar />
+        </div>
+      </aside>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="md:pl-64 flex-1 min-h-screen flex flex-col">
+      <main id="main-content" class="flex-1">
+        <slot />
+      </main>
+    </div>
+
     <BackToTop />
     <CommandPalette />
+
+    <!-- Mobile Drawer Handling script -->
+    <script is:inline>
+      (function() {
+        function initDrawer() {
+          const toggleBtn = document.getElementById('mobile-menu-toggle');
+          const closeBtn = document.getElementById('mobile-menu-close');
+          const overlay = document.getElementById('mobile-drawer-overlay');
+          const drawer = document.getElementById('mobile-menu-drawer');
+
+          if (!toggleBtn || !overlay || !drawer) return;
+
+          function openDrawer() {
+            overlay.classList.remove('hidden');
+            // Force redraw before sliding in
+            setTimeout(() => {
+              drawer.classList.remove('-translate-x-full');
+            }, 10);
+            toggleBtn.setAttribute('aria-expanded', 'true');
+          }
+
+          function closeDrawer() {
+            drawer.classList.add('-translate-x-full');
+            setTimeout(() => {
+              overlay.classList.add('hidden');
+            }, 200);
+            toggleBtn.setAttribute('aria-expanded', 'false');
+          }
+
+          toggleBtn.addEventListener('click', openDrawer);
+          if (closeBtn) {
+            closeBtn.addEventListener('click', closeDrawer);
+          }
+          overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeDrawer();
+          });
+
+          // Close on navigating away (view transitions page-load)
+          document.addEventListener('astro:after-swap', closeDrawer);
+        }
+
+        document.addEventListener('astro:page-load', initDrawer);
+        initDrawer();
+      })();
+    </script>
   </body>
 </html>

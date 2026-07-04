@@ -5,54 +5,42 @@ interface Props {
   slug: string;
   date: Date;
   readingTime: string;
-  tags: string[];
-  category: string;
+  tags?: string[];
+  categories?: string[];
 }
 
-const { title, description, slug, date, readingTime, tags, category } = Astro.props;
-
-const formattedDate = new Intl.DateTimeFormat('en-US', {
-  month: 'short',
-  day: '2-digit',
+const { title, description, slug, date, readingTime, categories } = Astro.props;
+const formattedDate = new Date(date).toLocaleDateString('en-US', {
   year: 'numeric',
-}).format(date);
+  month: 'short',
+  day: 'numeric',
+});
 ---
 
-<article class="group">
-  <a
-    href={`/writing/${slug}`}
-    class="block p-5 -mx-5 rounded-xl hover:bg-[var(--color-surface-hover)] transition-colors duration-200"
-  >
-    <!-- Meta line -->
-    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--color-text-tertiary)]">
-      <time datetime={date.toISOString()}>
-        {formattedDate}
-      </time>
-      <span aria-hidden="true">&middot;</span>
-      <span>{readingTime}</span>
-      <span aria-hidden="true">&middot;</span>
-      <span class="text-[var(--color-accent)] font-medium">{category}</span>
-    </div>
-
-    <!-- Title -->
-    <h3 class="text-lg font-semibold text-[var(--color-text)] mt-2 group-hover:text-[var(--color-accent)] transition-colors duration-200">
-      {title}
-    </h3>
-
-    <!-- Description -->
-    <p class="text-[var(--color-text-secondary)] mt-1.5 line-clamp-2 text-sm leading-relaxed">
-      {description}
-    </p>
-
-    <!-- Tags -->
-    {tags.length > 0 && (
-      <div class="flex flex-wrap gap-2 mt-3">
-        {tags.map((tag) => (
-          <span class="text-xs px-2 py-0.5 rounded-full bg-[var(--color-bg-secondary)] text-[var(--color-text-tertiary)]">
-            {tag}
-          </span>
-        ))}
-      </div>
+<article class="py-8 first:pt-0 last:pb-0 border-b border-[var(--color-border)] last:border-none group">
+  <div class="flex flex-wrap items-center gap-3 text-xs font-mono text-[var(--color-text-tertiary)] mb-2">
+    <time datetime={date.toISOString()}>{formattedDate}</time>
+    <span>•</span>
+    <span>{readingTime}</span>
+    {categories && categories.length > 0 && (
+      <>
+        <span>•</span>
+        <div class="flex gap-1.5">
+          {categories.map((cat) => (
+            <span class="uppercase tracking-wider text-[var(--color-text-secondary)]">{cat}</span>
+          ))}
+        </div>
+      </>
     )}
-  </a>
+  </div>
+
+  <h3 class="font-serif text-xl font-bold tracking-tight text-[var(--color-text)] group-hover:text-[var(--color-accent-primary)] transition-colors mb-2 leading-snug">
+    <a href={`/blog/${slug}`}>
+      {title}
+    </a>
+  </h3>
+  
+  <p class="text-sm text-[var(--color-text-secondary)] leading-relaxed max-w-2xl">
+    {description}
+  </p>
 </article>
