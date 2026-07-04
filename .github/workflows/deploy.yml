@@ -21,9 +21,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install uv and setup Python
-        # Some Astro setups might need python for specific node gyp builders, but Node is the main one.
-        # We can just do Node setup.
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
