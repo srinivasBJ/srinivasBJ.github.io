@@ -5,26 +5,51 @@ import { getCollection } from 'astro:content';
 
 const projects = await getCollection('projects');
 const sortedProjects = projects.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+
+// First project is the hero
+const heroProject = sortedProjects[0];
+const gridProjects = sortedProjects.slice(1);
 ---
 
 <PageLayout
   title="Projects"
-  description="Deep dives into software architectures, distributed systems, command-line utilities, and web experiments."
+  description="Open-source tools, full-stack platforms, and engineering experiments."
 >
-  <div class="grid sm:grid-cols-2 gap-6 mt-8">
-    {sortedProjects.map(project => (
+  <div class="mt-8 space-y-6">
+    <!-- Hero Featured Project -->
+    {heroProject && (
       <ProjectCard
-        title={project.data.title}
-        description={project.data.description}
-        slug={project.id}
-        tags={project.data.tags}
-        timeline={project.data.timeline}
-        featured={project.data.featured}
+        title={heroProject.data.title}
+        description={heroProject.data.description}
+        slug={heroProject.id}
+        tags={heroProject.data.tags}
+        timeline={heroProject.data.timeline}
+        featured={heroProject.data.featured}
+        github={heroProject.data.github}
+        variant="hero"
       />
-    ))}
+    )}
+
+    <!-- Project Grid -->
+    {gridProjects.length > 0 && (
+      <div class="grid sm:grid-cols-2 gap-5">
+        {gridProjects.map(project => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            slug={project.id}
+            tags={project.data.tags}
+            timeline={project.data.timeline}
+            featured={project.data.featured}
+            github={project.data.github}
+            variant="card"
+          />
+        ))}
+      </div>
+    )}
 
     {sortedProjects.length === 0 && (
-      <p class="text-[var(--color-text-tertiary)] italic py-12 text-center col-span-2">No projects logged yet.</p>
+      <p class="text-[var(--color-text-tertiary)] italic py-12 text-center">No projects logged yet.</p>
     )}
   </div>
 </PageLayout>
