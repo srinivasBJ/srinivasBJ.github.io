@@ -38,74 +38,74 @@
    CSS CUSTOM PROPERTIES — Light Mode (Default)
    ============================================================ */
 :root {
-  /* Background — Warm parchment tones */
-  --color-bg: #faf6ef;
-  --color-bg-secondary: #f3ece0;
-  --color-bg-tertiary: #e8dece;
+  /* Background — Premium deep dark */
+  --color-bg: #090909;
+  --color-bg-secondary: #121212;
+  --color-bg-tertiary: #1a1a1a;
 
-  /* Text — Rich warm browns */
-  --color-text: #2c2417;
-  --color-text-secondary: #6b5d4d;
-  --color-text-tertiary: #9e8e7a;
+  /* Text — Zinc tones */
+  --color-text: #f4f4f5;
+  --color-text-secondary: #a1a1aa;
+  --color-text-tertiary: #52525b;
 
-  /* Borders — Subtle warm lines */
-  --color-border: #e2d5c3;
-  --color-border-hover: #cfc0ab;
+  /* Borders — Sleek charcoal */
+  --color-border: #1c1c1f;
+  --color-border-hover: #2e2e33;
 
   /* Accent */
-  --color-accent: #2c2417;
-  --color-accent-hover: #1a150e;
-  --color-accent-subtle: #f3ece0;
-  --color-accent-primary: var(--color-accent-600);
+  --color-accent: #ffffff;
+  --color-accent-hover: #f4f4f5;
+  --color-accent-subtle: #18181b;
+  --color-accent-primary: #8b5cf6; /* Vibrant violet */
 
-  /* Surface — Warm paper cards */
-  --color-surface: #fdf9f3;
-  --color-surface-hover: #f7f0e5;
-  --color-surface-elevated: #ffffff;
+  /* Surface */
+  --color-surface: #121212;
+  --color-surface-hover: #161616;
+  --color-surface-elevated: #1a1a1a;
 
   /* Code blocks */
-  --color-code-bg: #f3ece0;
-  --color-code-text: #3d3225;
+  --color-code-bg: #18181b;
+  --color-code-text: #f4f4f5;
 
-  /* Shadows — Warm amber tint */
-  --shadow-sm: 0 1px 2px 0 rgb(60 40 10 / 0.04);
-  --shadow-md: 0 2px 4px 0 rgb(60 40 10 / 0.04), 0 1px 2px 0 rgb(60 40 10 / 0.03);
-  --shadow-lg: 0 4px 8px 0 rgb(60 40 10 / 0.05);
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 
   /* Scroll progress */
   --scroll-progress: 0%;
 }
 
 /* ============================================================
-   DARK MODE
+   LIGHT MODE (Toggled via class)
    ============================================================ */
-.dark {
-  --color-bg: var(--color-stone-950);
-  --color-bg-secondary: #121110;
-  --color-bg-tertiary: #1c1a19;
+.light {
+  --color-bg: #f8fafc;
+  --color-bg-secondary: #f1f5f9;
+  --color-bg-tertiary: #e2e8f0;
 
-  --color-text: #eae6df;
-  --color-text-secondary: #b2ada1;
-  --color-text-tertiary: #706b5e;
+  --color-text: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #94a3b8;
 
-  --color-border: #23211f;
-  --color-border-hover: #33302c;
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
 
-  --color-accent: #eae6df;
-  --color-accent-hover: #ffffff;
-  --color-accent-subtle: #121110;
-  --color-accent-primary: var(--color-accent-300);
+  --color-accent: #0f172a;
+  --color-accent-hover: #1e293b;
+  --color-accent-subtle: #f1f5f9;
+  --color-accent-primary: #6366f1;
 
-  --color-surface: #121110;
-  --color-surface-hover: #1c1a19;
-  --color-surface-elevated: #1c1a19;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f8fafc;
+  --color-surface-elevated: #ffffff;
 
-  --color-code-bg: #121110;
-  --color-code-text: #eae6df;
+  --color-code-bg: #f1f5f9;
+  --color-code-text: #0f172a;
 
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.1);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.15);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.2);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.02);
+  --shadow-md: 0 2px 4px 0 rgb(0 0 0 / 0.02), 0 1px 2px 0 rgb(0 0 0 / 0.02);
+  --shadow-lg: 0 4px 8px 0 rgb(0 0 0 / 0.02);
 }
 
 /* ============================================================
@@ -134,8 +134,8 @@ body {
 }
 
 ::selection {
-  background-color: #d4a574;
-  color: #2c2417;
+  background-color: rgba(139, 92, 246, 0.3);
+  color: inherit;
 }
 
 /* ============================================================
