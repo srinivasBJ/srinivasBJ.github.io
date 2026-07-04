@@ -24,10 +24,13 @@
         const params = new URLSearchParams(window.location.search);
         const token = params.get('token');
         if (token) {
-          localStorage.setItem('decap-cms-user', JSON.stringify({
+          const userObj = {
             token: token,
-            provider: 'github'
-          }));
+            provider: 'github',
+            backendName: 'github'
+          };
+          localStorage.setItem('decap-cms-user', JSON.stringify(userObj));
+          localStorage.setItem('netlify-cms-user', JSON.stringify(userObj));
           if (window.opener) {
             window.opener.location.reload();
             window.close();
@@ -39,7 +42,7 @@
           }
         }
 
-        const userStr = localStorage.getItem('decap-cms-user');
+        const userStr = localStorage.getItem('decap-cms-user') || localStorage.getItem('netlify-cms-user');
         if (userStr) {
           try {
             const user = JSON.parse(userStr);
@@ -53,17 +56,22 @@
                 if (res.ok) {
                   const profile = await res.json();
                   user.login = profile.login;
-                  localStorage.setItem('decap-cms-user', JSON.stringify(user));
+                  user.backendName = 'github';
+                  const updatedStr = JSON.stringify(user);
+                  localStorage.setItem('decap-cms-user', updatedStr);
+                  localStorage.setItem('netlify-cms-user', updatedStr);
                 } else {
                   const errText = await res.text();
                   alert('GitHub API Authorization Failed (Status ' + res.status + '): ' + errText + '\nToken: ' + user.token.substring(0, 10) + '...');
                   localStorage.removeItem('decap-cms-user');
+                  localStorage.removeItem('netlify-cms-user');
                   location.reload();
                   return;
                 }
               } catch (fetchErr) {
                 alert('Network/CORS Error fetching user profile: ' + fetchErr.message);
                 localStorage.removeItem('decap-cms-user');
+                localStorage.removeItem('netlify-cms-user');
                 location.reload();
                 return;
               }
@@ -72,11 +80,13 @@
             if (user.login && user.login.toLowerCase() !== 'srinivasbj') {
               alert('Access Denied: Logged in as GitHub user "' + user.login + '". Only "srinivasbj" is authorized to access the CMS.');
               localStorage.removeItem('decap-cms-user');
+              localStorage.removeItem('netlify-cms-user');
               location.reload();
               return;
             }
           } catch (e) {
             localStorage.removeItem('decap-cms-user');
+            localStorage.removeItem('netlify-cms-user');
           }
         }
 
