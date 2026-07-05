@@ -102,12 +102,14 @@
       })();
     </script>
 
-    <!-- Load KaTeX for math preview in CMS -->
+    <!-- Load KaTeX, auto-render extension, and fonts for math preview in CMS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
       crossorigin="anonymous"
     />
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
 
     <!-- Load Decap CMS via unpkg CDN -->
     <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
@@ -128,13 +130,36 @@
             }
           });
 
+          // Inject KaTeX styles inside the preview iframe
+          CMS.registerPreviewStyle("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css");
+
           // Register custom preview templates using React functional components
-          var h = window.h;
+          var h = window.h || window.React.createElement;
+          var React = window.React;
 
           function BlogPreview(props) {
             var entry = props.entry;
             var body = props.widgetFor('body');
-            return h('div', { style: { fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', padding: '24px', maxWidth: '720px', color: '#e8e4d9', backgroundColor: '#0b0a09' } },
+            var containerRef = React.useRef(null);
+
+            React.useEffect(function () {
+              if (containerRef.current && window.renderMathInElement) {
+                window.renderMathInElement(containerRef.current, {
+                  delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                    { left: '\\[', right: '\\]', display: true }
+                  ],
+                  throwOnError: false
+                });
+              }
+            });
+
+            return h('div', { 
+              ref: containerRef,
+              style: { fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', padding: '24px', maxWidth: '720px', color: '#e8e4d9', backgroundColor: '#0b0a09' } 
+            },
               h('h1', { style: { fontSize: '2rem', fontWeight: 'bold', marginBottom: '12px', color: '#f0ecdf' } },
                 entry.getIn(['data', 'title'])
               ),
@@ -157,7 +182,26 @@
           function GenericPreview(props) {
             var entry = props.entry;
             var body = props.widgetFor('body');
-            return h('div', { style: { fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', padding: '24px', maxWidth: '720px', color: '#e8e4d9', backgroundColor: '#0b0a09' } },
+            var containerRef = React.useRef(null);
+
+            React.useEffect(function () {
+              if (containerRef.current && window.renderMathInElement) {
+                window.renderMathInElement(containerRef.current, {
+                  delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                    { left: '\\[', right: '\\]', display: true }
+                  ],
+                  throwOnError: false
+                });
+              }
+            });
+
+            return h('div', { 
+              ref: containerRef,
+              style: { fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', padding: '24px', maxWidth: '720px', color: '#e8e4d9', backgroundColor: '#0b0a09' } 
+            },
               h('h1', { style: { fontSize: '2rem', fontWeight: 'bold', marginBottom: '16px', color: '#f0ecdf' } },
                 entry.getIn(['data', 'title'])
               ),
