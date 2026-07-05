@@ -69,8 +69,8 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
     {image && <meta name="twitter:image" content={new URL(image, Astro.site)} />}
 
     <!-- Theme Color -->
-    <meta name="theme-color" content="#0f0d0a" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#FDF8EE" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b0a09" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fcfbf9" media="(prefers-color-scheme: light)" />
 
     <!-- Prevent flash of wrong theme -->
     <script is:inline>
@@ -126,9 +126,10 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
           parent.parentNode.replaceChild(container, parent);
         });
 
+        // Use colors matching the original light/dark variables
         var themeVars = isLight
-          ? { background: '#FDF8EE', primaryColor: '#F5EDD9', primaryTextColor: '#3E2723', lineColor: '#A3432F', secondaryColor: '#F0E8D4', tertiaryColor: '#E0D5C1' }
-          : { background: '#0f0d0a', primaryColor: '#1e1b15', primaryTextColor: '#f0ecdf', lineColor: '#C45A3F', secondaryColor: '#16140f' };
+          ? { background: '#FDF8EE', primaryColor: '#F5EDD9', primaryTextColor: '#0f172a', lineColor: '#cbd5e1', secondaryColor: '#FFFFFF' }
+          : { background: '#121212', primaryColor: '#1a1a1a', primaryTextColor: '#f4f4f5', lineColor: '#2e2e33', secondaryColor: '#161616' };
 
         if (window.mermaid) {
           window.mermaid.initialize({ startOnLoad: false, theme: isLight ? 'base' : 'dark', themeVariables: themeVars });
@@ -150,11 +151,8 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
     <ClientRouter />
   </head>
   <body
-    class="bg-[var(--color-bg)] text-[var(--color-text)] font-serif min-h-screen flex flex-col antialiased transition-colors duration-300"
+    class="bg-[var(--color-bg)] text-[var(--color-text)] font-sans min-h-screen flex flex-col antialiased transition-colors duration-200"
   >
-    <!-- Subtle mandala texture overlay -->
-    <div class="mandala-overlay" aria-hidden="true"></div>
-
     <!-- Skip to content -->
     <a
       href="#main-content"
@@ -172,7 +170,7 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
 
     <!-- Mobile Top Header -->
     <header class="sticky top-0 w-full z-30 bg-[var(--color-bg)]/90 backdrop-blur-md border-b border-[var(--color-border)] px-6 h-14 flex items-center justify-between md:hidden">
-      <a href="/" class="font-display font-bold text-lg text-[var(--color-heading)]">
+      <a href="/" class="font-serif font-bold text-lg text-[var(--color-text)]">
         srinivasBJ
       </a>
       <button
@@ -201,7 +199,7 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
       >
         <!-- Mobile Sidebar Close Header -->
         <div class="flex items-center justify-between mb-8 md:hidden">
-          <span class="font-display font-bold text-lg">Menu</span>
+          <span class="font-serif font-bold text-lg">Menu</span>
           <button
             id="mobile-menu-close"
             type="button"
