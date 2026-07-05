@@ -24,9 +24,9 @@ From a computational perspective, it represents:
 
 The key research value is not anatomical structure, but the fact that a system with approximately:
 
-\[
+$$
 \mathcal{O}(10^5)
-\]
+$$
 
 neurons can implement robust closed-loop control policies under uncertainty.
 
@@ -56,14 +56,14 @@ Behavioral complexity emerges from **nonlinear feedback loops**, not network dep
 
 At the population level, adaptation can be modeled as black-box optimization:
 
-\[
+$$
 \theta_{t+1} = \theta_t + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma^2)
-\]
+$$
 
 where:
 
-- \(\theta\) represents genome-encoded policy parameters  
-- selection pressure acts as a fitness-based filter function \(f(\theta)\)
+- $\theta$ represents genome-encoded policy parameters  
+- selection pressure acts as a fitness-based filter function $f(\theta)$  
 
 This approximates a **stochastic evolutionary search process** over policy space.
 
@@ -73,15 +73,15 @@ This approximates a **stochastic evolutionary search process** over policy space
 
 At runtime, behavior follows a closed-loop dynamical system:
 
-\[
+$$
 s_t \rightarrow a_t \rightarrow s_{t+1}
-\]
+$$
 
 where:
 
-- \(s_t\): sensory state  
-- \(a_t\): action output  
-- \(s_{t+1}\): environment transition  
+- $s_t$: sensory state  
+- $a_t$: action output  
+- $s_{t+1}$: environment transition  
 
 This forms a continuous-time control system under uncertainty.
 
@@ -95,9 +95,9 @@ The system can be formalized as a constrained Markov Decision Process (MDP):
 - Action space: motor control signals  
 - Policy: stochastic mapping  
 
-\[
+$$
 a \sim \pi_\theta(a \mid s)
-\]
+$$
 
 Reward is not explicitly computed but emerges implicitly from survival signals:
 
@@ -113,13 +113,13 @@ Key distinction: learning is distributed across **evolution + local synaptic ada
 
 The fruit fly can be modeled as a **low-capacity stochastic policy network**:
 
-\[
+$$
 a_t \sim \pi_\theta(a_t \mid s_t, h_{t-1})
-\]
+$$
 
 where:
 
-- \(h_{t-1}\): minimal recurrent state (short memory horizon)  
+- $h_{t-1}$: minimal recurrent state (short memory horizon)  
 
 ### Key system properties:
 
@@ -202,8 +202,13 @@ Despite lacking explicit world models or symbolic reasoning, the system achieves
 
 Microscopic trajectory of a fruit fly overlaid with a sparse stochastic neural policy graph representing real-time mapping:
 
-\[
+$$
 \pi_\theta(s) \rightarrow a
-\]
+$$
 
 under continuous environmental feedback dynamics.
+
+----
+---
+
+yt resource recc- https://www.youtube.com/watch?v=-pV9pK2Xdss&list=LL&index=42
