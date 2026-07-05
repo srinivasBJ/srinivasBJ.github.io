@@ -40,32 +40,32 @@
 :root {
   /* Background — Premium deep dark */
   --color-bg: #090909;
-  --color-bg-secondary: #121212;
-  --color-bg-tertiary: #1a1a1a;
+  --color-bg-secondary: #111110;
+  --color-bg-tertiary: #1a1918;
 
-  /* Text — Zinc tones */
-  --color-text: #f4f4f5;
-  --color-text-secondary: #a1a1aa;
-  --color-text-tertiary: #52525b;
+  /* Text — Warm zinc tones */
+  --color-text: #f0ecdf;
+  --color-text-secondary: #a09a8c;
+  --color-text-tertiary: #5c5850;
 
-  /* Borders — Sleek charcoal */
-  --color-border: #1c1c1f;
-  --color-border-hover: #2e2e33;
+  /* Borders — Warm charcoal */
+  --color-border: #1e1d1a;
+  --color-border-hover: #302e28;
 
   /* Accent */
-  --color-accent: #ffffff;
-  --color-accent-hover: #f4f4f5;
-  --color-accent-subtle: #18181b;
-  --color-accent-primary: #8b5cf6; /* Vibrant violet */
+  --color-accent: #f0ecdf;
+  --color-accent-hover: #e8e4d9;
+  --color-accent-subtle: #1a1918;
+  --color-accent-primary: #D4A017; /* Gold accent */
 
   /* Surface */
-  --color-surface: #121212;
-  --color-surface-hover: #161616;
-  --color-surface-elevated: #1a1a1a;
+  --color-surface: #111110;
+  --color-surface-hover: #191816;
+  --color-surface-elevated: #1e1d1a;
 
   /* Code blocks */
-  --color-code-bg: #18181b;
-  --color-code-text: #f4f4f5;
+  --color-code-bg: #1a1918;
+  --color-code-text: #e8e4d9;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
@@ -80,32 +80,39 @@
    LIGHT MODE (Toggled via class)
    ============================================================ */
 .light {
-  --color-bg: #f8fafc;
-  --color-bg-secondary: #f1f5f9;
-  --color-bg-tertiary: #e2e8f0;
+  /* Background — Warm cream */
+  --color-bg: #F9F3E5;
+  --color-bg-secondary: #F0E8D4;
+  --color-bg-tertiary: #E0D5C1;
 
-  --color-text: #0f172a;
-  --color-text-secondary: #475569;
-  --color-text-tertiary: #94a3b8;
+  /* Text — Charcoal brown for readability without eye strain */
+  --color-text: #3E2723;
+  --color-text-secondary: #5D4037;
+  --color-text-tertiary: #8D6E63;
 
-  --color-border: #e2e8f0;
-  --color-border-hover: #cbd5e1;
+  /* Borders — Light sand */
+  --color-border: #E0D5C1;
+  --color-border-hover: #C9BC9E;
 
-  --color-accent: #0f172a;
-  --color-accent-hover: #1e293b;
-  --color-accent-subtle: #f1f5f9;
-  --color-accent-primary: #6366f1;
+  /* Accent — Deep orange & gold */
+  --color-accent: #3E2723;
+  --color-accent-hover: #4E342E;
+  --color-accent-subtle: #F0E8D4;
+  --color-accent-primary: #B3541E; /* Deep orange */
 
-  --color-surface: #ffffff;
-  --color-surface-hover: #f8fafc;
-  --color-surface-elevated: #ffffff;
+  /* Surface — Soft parchment */
+  --color-surface: #FDF8EE;
+  --color-surface-hover: #F5EDD9;
+  --color-surface-elevated: #FFFFFF;
 
-  --color-code-bg: #f1f5f9;
-  --color-code-text: #0f172a;
+  /* Code blocks — Warm tinted */
+  --color-code-bg: #EDE4D0;
+  --color-code-text: #3E2723;
 
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.02);
-  --shadow-md: 0 2px 4px 0 rgb(0 0 0 / 0.02), 0 1px 2px 0 rgb(0 0 0 / 0.02);
-  --shadow-lg: 0 4px 8px 0 rgb(0 0 0 / 0.02);
+  /* Shadows — Warm, subtle */
+  --shadow-sm: 0 1px 2px 0 rgb(62 39 35 / 0.04);
+  --shadow-md: 0 2px 4px 0 rgb(62 39 35 / 0.04), 0 1px 2px 0 rgb(62 39 35 / 0.03);
+  --shadow-lg: 0 4px 8px 0 rgb(62 39 35 / 0.05);
 }
 
 /* ============================================================
@@ -134,7 +141,12 @@ body {
 }
 
 ::selection {
-  background-color: rgba(139, 92, 246, 0.3);
+  background-color: rgba(212, 160, 23, 0.3);
+  color: inherit;
+}
+
+.light ::selection {
+  background-color: rgba(179, 84, 30, 0.2);
   color: inherit;
 }
 
@@ -309,10 +321,19 @@ body {
   line-height: 1.65;
   padding: 1.5rem;
   margin: 2rem 0;
-  border-radius: 4px;
+  border-radius: 6px;
   overflow-x: auto;
   border: 1px solid var(--color-border);
-  background-color: var(--color-bg-secondary) !important;
+}
+
+/* Ensure Shiki-generated code blocks have visible backgrounds */
+.prose pre[data-language],
+.prose pre:has(> code) {
+  background-color: var(--color-code-bg) !important;
+}
+
+.prose pre code span {
+  /* Let Shiki's inline color styles take precedence for syntax highlighting */
 }
 
 .prose pre code {
