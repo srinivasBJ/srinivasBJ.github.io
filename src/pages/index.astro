@@ -10,16 +10,15 @@ const allProjects = await getCollection('projects');
 
 // Filters & Sorts
 const pinnedPosts = allBlog
-  .filter(p => !p.data.draft && p.data.pinned)
+  .filter(p => p.data.pinned)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const latestPosts = allBlog
-  .filter(p => !p.data.draft && !p.data.pinned)
+  .filter(p => !p.data.pinned)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
 const recentLab = allLab
-  .filter(p => !p.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
@@ -29,13 +28,13 @@ const featuredProjects = allProjects
   .slice(0, 2);
 
 const recentActivity = [
-  ...allBlog.filter(p => !p.data.draft).map(p => ({
+  ...allBlog.map(p => ({
     date: p.data.date,
     type: 'Article',
     title: p.data.title,
     href: `/blog/${p.id}`
   })),
-  ...allLab.filter(n => !n.data.draft).map(n => ({
+  ...allLab.map(n => ({
     date: n.data.date,
     type: 'Lab Note',
     title: n.data.title,

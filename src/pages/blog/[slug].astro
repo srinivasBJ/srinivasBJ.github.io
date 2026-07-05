@@ -5,7 +5,6 @@ import PostLayout from '../../layouts/PostLayout.astro';
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   const sorted = posts
-    .filter(p => !p.data.draft)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   
   return sorted.map((entry, i) => ({

@@ -5,7 +5,7 @@ import PostCard from '../../../components/PostCard.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  const activePosts = posts.filter(p => !p.data.draft);
+  const activePosts = posts;
   const categories = [...new Set(activePosts.flatMap(p => p.data.categories || []))];
 
   return categories.map(category => ({

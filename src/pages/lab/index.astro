@@ -4,7 +4,6 @@ import { getCollection } from 'astro:content';
 
 const labNotes = await getCollection('lab');
 const activeNotes = labNotes
-  .filter(n => !n.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 // Group by category for an organized dashboard feel
