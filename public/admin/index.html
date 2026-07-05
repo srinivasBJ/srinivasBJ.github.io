@@ -143,8 +143,9 @@
             var containerRef = React.useRef(null);
 
             React.useEffect(function () {
-              if (containerRef.current && window.renderMathInElement) {
-                window.renderMathInElement(containerRef.current, {
+              var renderMath = window.renderMathInElement || (window.parent && window.parent.renderMathInElement);
+              if (containerRef.current && renderMath) {
+                renderMath(containerRef.current, {
                   delimiters: [
                     { left: '$$', right: '$$', display: true },
                     { left: '$', right: '$', display: false },
@@ -185,8 +186,9 @@
             var containerRef = React.useRef(null);
 
             React.useEffect(function () {
-              if (containerRef.current && window.renderMathInElement) {
-                window.renderMathInElement(containerRef.current, {
+              var renderMath = window.renderMathInElement || (window.parent && window.parent.renderMathInElement);
+              if (containerRef.current && renderMath) {
+                renderMath(containerRef.current, {
                   delimiters: [
                     { left: '$$', right: '$$', display: true },
                     { left: '$', right: '$', display: false },
