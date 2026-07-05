@@ -128,47 +128,45 @@
             }
           });
 
-          // Register custom preview template for blog posts
-          var BlogPreview = createClass({
-            render: function () {
-              var entry = this.props.entry;
-              var body = this.props.widgetFor('body');
-              return h('div', { style: { fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', padding: '24px', maxWidth: '720px', color: '#e8e4d9', backgroundColor: '#0b0a09' } },
-                h('h1', { style: { fontSize: '2rem', fontWeight: 'bold', marginBottom: '12px', color: '#f0ecdf' } },
-                  entry.getIn(['data', 'title'])
-                ),
-                h('p', { style: { fontSize: '0.95rem', color: '#a09a8c', marginBottom: '8px' } },
-                  'Description / Abstract: ', entry.getIn(['data', 'description'])
-                ),
-                h('p', { style: { fontSize: '0.75rem', color: '#706b5e', marginBottom: '24px' } },
-                  (entry.getIn(['data', 'categories']) || []).join(', ')
-                ),
-                h('hr', { style: { borderColor: '#222', marginBottom: '24px' } }),
-                h('div', { style: { fontSize: '0.95rem', lineHeight: '1.75', color: '#d4d0c8' } },
-                  body
-                )
-              );
-            }
-          });
+          // Register custom preview templates using React functional components
+          var h = window.h;
+
+          function BlogPreview(props) {
+            var entry = props.entry;
+            var body = props.widgetFor('body');
+            return h('div', { style: { fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', padding: '24px', maxWidth: '720px', color: '#e8e4d9', backgroundColor: '#0b0a09' } },
+              h('h1', { style: { fontSize: '2rem', fontWeight: 'bold', marginBottom: '12px', color: '#f0ecdf' } },
+                entry.getIn(['data', 'title'])
+              ),
+              h('p', { style: { fontSize: '0.95rem', color: '#a09a8c', marginBottom: '8px' } },
+                'Description / Abstract: ', entry.getIn(['data', 'description'])
+              ),
+              h('p', { style: { fontSize: '0.75rem', color: '#706b5e', marginBottom: '24px' } },
+                (entry.getIn(['data', 'categories']) || []).join(', ')
+              ),
+              h('hr', { style: { borderColor: '#222', marginBottom: '24px' } }),
+              h('div', { style: { fontSize: '0.95rem', lineHeight: '1.75', color: '#d4d0c8' } },
+                body
+              )
+            );
+          }
 
           CMS.registerPreviewTemplate('blog', BlogPreview);
 
           // Register for lab, projects, reading too
-          var GenericPreview = createClass({
-            render: function () {
-              var entry = this.props.entry;
-              var body = this.props.widgetFor('body');
-              return h('div', { style: { fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', padding: '24px', maxWidth: '720px', color: '#e8e4d9', backgroundColor: '#0b0a09' } },
-                h('h1', { style: { fontSize: '2rem', fontWeight: 'bold', marginBottom: '16px', color: '#f0ecdf' } },
-                  entry.getIn(['data', 'title'])
-                ),
-                h('hr', { style: { borderColor: '#222', marginBottom: '24px' } }),
-                h('div', { style: { fontSize: '0.95rem', lineHeight: '1.75', color: '#d4d0c8' } },
-                  body
-                )
-              );
-            }
-          });
+          function GenericPreview(props) {
+            var entry = props.entry;
+            var body = props.widgetFor('body');
+            return h('div', { style: { fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif', padding: '24px', maxWidth: '720px', color: '#e8e4d9', backgroundColor: '#0b0a09' } },
+              h('h1', { style: { fontSize: '2rem', fontWeight: 'bold', marginBottom: '16px', color: '#f0ecdf' } },
+                entry.getIn(['data', 'title'])
+              ),
+              h('hr', { style: { borderColor: '#222', marginBottom: '24px' } }),
+              h('div', { style: { fontSize: '0.95rem', lineHeight: '1.75', color: '#d4d0c8' } },
+                body
+              )
+            );
+          }
 
           CMS.registerPreviewTemplate('lab', GenericPreview);
           CMS.registerPreviewTemplate('projects', GenericPreview);
