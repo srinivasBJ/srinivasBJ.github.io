@@ -131,14 +131,115 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
           ? { background: '#FDF8EE', primaryColor: '#F5EDD9', primaryTextColor: '#0f172a', lineColor: '#cbd5e1', secondaryColor: '#FFFFFF' }
           : { background: '#121212', primaryColor: '#1a1a1a', primaryTextColor: '#f4f4f5', lineColor: '#2e2e33', secondaryColor: '#161616' };
 
+        var themeCSS = isLight
+          ? `
+            .node rect, .node circle, .node polygon, .node path {
+              stroke: #d97706 !important;
+              stroke-width: 1.5px !important;
+              fill: #FDF8EE !important;
+              rx: 8px !important;
+              ry: 8px !important;
+            }
+            .node.highlight rect {
+              fill: #d97706 !important;
+              stroke: #b45309 !important;
+            }
+            .node.highlight .label {
+              color: #ffffff !important;
+            }
+            .node .label {
+              font-family: 'Inter', sans-serif !important;
+              color: #3e2723 !important;
+              font-weight: 500 !important;
+              font-size: 13px !important;
+            }
+            .edgePath .path {
+              stroke: #b45309 !important;
+              stroke-width: 1.5px !important;
+            }
+            .edgePath .arrowheadPath {
+              fill: #b45309 !important;
+            }
+            .cluster rect {
+              fill: #F5EDD9 !important;
+              stroke: #cbd5e1 !important;
+              stroke-width: 1px !important;
+              rx: 12px !important;
+              ry: 12px !important;
+            }
+            .cluster .label {
+              font-family: 'Inter', sans-serif !important;
+              fill: #475569 !important;
+              font-size: 11px !important;
+              font-weight: 600 !important;
+            }
+          `
+          : `
+            /* Obsidian Purple Graph styling for dark mode */
+            .node rect, .node circle, .node polygon, .node path {
+              stroke: #8b5cf6 !important; /* Obsidian purple stroke */
+              stroke-width: 1.5px !important;
+              fill: #14121a !important; /* Deep dark purple-tinted background */
+              rx: 8px !important; /* Clean rounded edges */
+              ry: 8px !important;
+            }
+            /* Highlight class defined in markdown */
+            .node.highlight rect {
+              fill: #10b981 !important; /* Keep green highlight but styled cleanly */
+              stroke: #34d399 !important;
+              stroke-width: 2px !important;
+            }
+            .node.highlight .label {
+              color: #ffffff !important;
+              font-weight: 600 !important;
+            }
+            .node .label {
+              font-family: 'Inter', sans-serif !important;
+              color: #c084fc !important; /* Glowing lavender text */
+              font-weight: 500 !important;
+              font-size: 13px !important;
+            }
+            .edgePath .path {
+              stroke: #6d28d9 !important; /* Smooth purple connection lines */
+              stroke-width: 1.5px !important;
+            }
+            .edgePath .arrowheadPath {
+              fill: #6d28d9 !important;
+            }
+            .cluster rect {
+              fill: #0d0b11 !important; /* Slightly darker purple container */
+              stroke: #4c1d95 !important; /* Purple border for container */
+              stroke-width: 1px !important;
+              rx: 12px !important;
+              ry: 12px !important;
+            }
+            .cluster .label {
+              font-family: 'Inter', sans-serif !important;
+              fill: #a78bfa !important;
+              font-size: 11px !important;
+              font-weight: 600 !important;
+            }
+          `;
+
+        const config = {
+          startOnLoad: false,
+          theme: isLight ? 'base' : 'dark',
+          themeVariables: themeVars,
+          themeCSS: themeCSS,
+          flowchart: {
+            htmlLabels: true,
+            curve: 'basis' /* Smooth organic curves like Obsidian graph */
+          }
+        };
+
         if (window.mermaid) {
-          window.mermaid.initialize({ startOnLoad: false, theme: isLight ? 'base' : 'dark', themeVariables: themeVars });
+          window.mermaid.initialize(config);
           window.mermaid.init(undefined, document.querySelectorAll('.mermaid'));
         } else {
           var script = document.createElement('script');
           script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js';
           script.onload = function() {
-            window.mermaid.initialize({ startOnLoad: false, theme: isLight ? 'base' : 'dark', themeVariables: themeVars });
+            window.mermaid.initialize(config);
             window.mermaid.init(undefined, document.querySelectorAll('.mermaid'));
           };
           document.body.appendChild(script);
