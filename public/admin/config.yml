@@ -28,7 +28,7 @@ collections:
       - { label: "Tags", name: "tags", widget: "list", field: { name: "tag", widget: "string" } }
       - { label: "Draft Mode", name: "draft", widget: "boolean", default: false }
       - { label: "Pin to Home", name: "pinned", widget: "boolean", default: false }
-      - { label: "Body Content", name: "body", widget: "markdown", modes: ["raw"] }
+      - { label: "Body Content", name: "body", widget: "markdown" }
 
   # Collection 2: Lab Notes (Digital Garden)
   - name: "lab"
@@ -42,7 +42,7 @@ collections:
       - { label: "Category", name: "category", widget: "string", default: "General" }
       - { label: "Tags", name: "tags", widget: "list", field: { name: "tag", widget: "string" } }
       - { label: "Draft Mode", name: "draft", widget: "boolean", default: false }
-      - { label: "Body Content", name: "body", widget: "markdown", modes: ["raw"] }
+      - { label: "Body Content", name: "body", widget: "markdown" }
 
   # Collection 3: Projects (Structured Case Studies)
   - name: "projects"
@@ -59,7 +59,7 @@ collections:
       - { label: "Timeline", name: "timeline", widget: "string", placeholder: "e.g. 2024" }
       - { label: "Featured Project", name: "featured", widget: "boolean", default: false }
       - { label: "Sort Order", name: "order", widget: "number", value_type: "int", default: 0 }
-      - { label: "Body Content", name: "body", widget: "markdown", modes: ["raw"] }
+      - { label: "Body Content", name: "body", widget: "markdown" }
 
   # Collection 4: Reading Log (Bookmarked Knowledge)
   - name: "reading"
@@ -78,4 +78,4 @@ collections:
       - { label: "Description / Recommendation", name: "description", widget: "text" }
       - { label: "External URL", name: "url", widget: "string", required: false }
       - { label: "Tags", name: "tags", widget: "list", field: { name: "tag", widget: "string" } }
-      - { label: "Body Content", name: "body", widget: "markdown", modes: ["raw"] }
+      - { label: "Body Content", name: "body", widget: "markdown" }

@@ -239,45 +239,106 @@ function getReadingTime(text: string): string {
         </div>
 
         <!-- Contact Form -->
-        <form
-          action="https://formsubmit.co/ssai603174@gmail.com"
-          method="POST"
-          class="space-y-4"
-        >
-          <!-- FormSubmit configuration -->
-          <input type="hidden" name="_next" value="https://srinivasbj.github.io/">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_subject" value="New Portfolio Message!">
-          <div class="grid grid-cols-2 gap-4">
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              required
-              class="w-full px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:border-[var(--color-border-hover)] focus:ring-1 focus:ring-[var(--color-border-hover)] transition-colors"
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              required
-              class="w-full px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:border-[var(--color-border-hover)] focus:ring-1 focus:ring-[var(--color-border-hover)] transition-colors"
-            />
-          </div>
-          <textarea
-            name="message"
-            placeholder="What's on your mind?"
-            rows="5"
-            required
-            class="w-full px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:border-[var(--color-border-hover)] focus:ring-1 focus:ring-[var(--color-border-hover)] transition-colors resize-none"
-          ></textarea>
-          <button
-            type="submit"
-            class="px-6 py-2.5 rounded-lg border border-[var(--color-border)] text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border-hover)] transition-all duration-150 cursor-pointer"
+        <div class="space-y-4">
+          <form
+            id="contact-form"
+            class="space-y-4"
           >
-            Send message
-          </button>
-        </form>
+            <!-- FormSubmit configuration -->
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="New Portfolio Message!">
+            <div class="grid grid-cols-2 gap-4">
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                required
+                class="w-full px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:border-[var(--color-border-hover)] focus:ring-1 focus:ring-[var(--color-border-hover)] transition-colors"
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                required
+                class="w-full px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:border-[var(--color-border-hover)] focus:ring-1 focus:ring-[var(--color-border-hover)] transition-colors"
+              />
+            </div>
+            <textarea
+              name="message"
+              placeholder="What's on your mind?"
+              rows="5"
+              required
+              class="w-full px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:border-[var(--color-border-hover)] focus:ring-1 focus:ring-[var(--color-border-hover)] transition-colors resize-none"
+            ></textarea>
+            <button
+              id="contact-submit"
+              type="submit"
+              class="px-6 py-2.5 rounded-lg border border-[var(--color-border)] text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border-hover)] transition-all duration-150 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Send message
+            </button>
+          </form>
+
+          <!-- Status Alerts -->
+          <div id="contact-status" class="hidden text-sm p-4 rounded-lg border"></div>
+        </div>
+
+        <script>
+          const form = document.getElementById('contact-form') as HTMLFormElement | null;
+          const statusDiv = document.getElementById('contact-status') as HTMLDivElement | null;
+          const submitBtn = document.getElementById('contact-submit') as HTMLButtonElement | null;
+
+          if (form && statusDiv && submitBtn) {
+            form.addEventListener('submit', async (e) => {
+              e.preventDefault();
+              
+              // Set loading state
+              submitBtn.disabled = true;
+              submitBtn.textContent = 'Sending...';
+              statusDiv.className = 'hidden';
+
+              try {
+                const formData = new FormData(form);
+                const data = {
+                  name: formData.get('name'),
+                  email: formData.get('email'),
+                  message: formData.get('message'),
+                  _subject: formData.get('_subject')
+                };
+
+                const response = await fetch('https://formsubmit.co/ajax/ssai603174@gmail.com', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success === 'true') {
+                  statusDiv.textContent = 'Message sent successfully! Thank you.';
+                  statusDiv.className = 'text-sm p-4 rounded-lg border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 block';
+                  form.reset();
+                } else {
+                  let message = result.message || 'Something went wrong. Please try again.';
+                  if (message.toLowerCase().includes('activation')) {
+                    message = 'Form needs activation. Please check your email (ssai603174@gmail.com) for a confirmation link from FormSubmit.co to activate submissions.';
+                  }
+                  statusDiv.textContent = message;
+                  statusDiv.className = 'text-sm p-4 rounded-lg border border-red-500/20 bg-red-500/10 text-red-400 block';
+                }
+              } catch (error) {
+                statusDiv.textContent = 'Failed to send message. Please check your internet connection or try again later.';
+                statusDiv.className = 'text-sm p-4 rounded-lg border border-red-500/20 bg-red-500/10 text-red-400 block';
+              } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send message';
+              }
+            });
+          }
+        </script>
       </div>
     </section>
 

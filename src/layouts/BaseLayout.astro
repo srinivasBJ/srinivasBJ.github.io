@@ -91,31 +91,12 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
       document.addEventListener('astro:after-swap', applyTheme);
     </script>
 
-    <!-- KaTeX CSS for LaTeX math rendering -->
+    <!-- KaTeX CSS for LaTeX math rendering (formulas rendered at build time by rehype-katex) -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
       crossorigin="anonymous"
     />
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
-    <script is:inline>
-      function renderMath() {
-        if (window.renderMathInElement) {
-          window.renderMathInElement(document.body, {
-            delimiters: [
-              { left: '$$', right: '$$', display: true },
-              { left: '$', right: '$', display: false },
-              { left: '\\(', right: '\\)', display: false },
-              { left: '\\[', right: '\\]', display: true }
-            ],
-            throwOnError: false
-          });
-        }
-      }
-      document.addEventListener('DOMContentLoaded', renderMath);
-      document.addEventListener('astro:page-load', renderMath);
-    </script>
 
     <ClientRouter />
   </head>
