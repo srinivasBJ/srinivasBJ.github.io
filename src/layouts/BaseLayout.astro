@@ -91,6 +91,13 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
       document.addEventListener('astro:after-swap', applyTheme);
     </script>
 
+    <!-- KaTeX CSS for LaTeX math rendering -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+      crossorigin="anonymous"
+    />
+
     <ClientRouter />
   </head>
   <body
