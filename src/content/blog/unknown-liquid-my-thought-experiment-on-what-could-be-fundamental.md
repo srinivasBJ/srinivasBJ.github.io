@@ -81,17 +81,17 @@ Let the Unknown Liquid be represented as a **dynamic non-equilibrium field syste
 
 ### 4.1 Dynamic Viscosity Function
 
-\[
+$$
 V(t, p, T, \sigma) = f(\theta(t))
-\]
+$$
 
 Where:
 
-- \(t\) = time evolution parameter  
-- \(p\) = pressure  
-- \(T\) = temperature  
-- \(\sigma\) = applied external stress  
-- \(\theta(t)\) = internal latent state variable governing microscopic configuration  
+- $t$ = time evolution parameter  
+- $p$ = pressure  
+- $T$ = temperature  
+- $\sigma$ = applied external stress  
+- $\theta(t)$ = internal latent state variable governing microscopic configuration  
 
 👉 Interpretation:  
 Viscosity is not fixed; it is controlled by an internal evolving state rather than only external thermodynamic conditions.
@@ -100,34 +100,34 @@ Viscosity is not fixed; it is controlled by an internal evolving state rather th
 
 ### 4.2 State Transition Probability Model
 
-\[
+$$
 P(S_i \rightarrow S_j) =
 \frac{e^{-\Delta E_{ij} / kT}}{Z + \epsilon}
-\]
+$$
 
 Where:
 
-- \(S_i, S_j\) = discrete material states  
-- \(\Delta E_{ij}\) = energy barrier between states  
-- \(kT\) = thermal energy scale  
-- \(Z\) = normalization (partition function)  
-- \(\epsilon\) = instability perturbation term  
+- $S_i, S_j$ = discrete material states  
+- $\Delta E_{ij}$ = energy barrier between states  
+- $kT$ = thermal energy scale  
+- $Z$ = normalization (partition function)  
+- $\epsilon$ = instability perturbation term  
 
 👉 Interpretation:  
-State transitions follow thermodynamic probability, but include an instability term \( \epsilon \) that introduces deviation from classical equilibrium behavior.
+State transitions follow thermodynamic probability, but include an instability term $ \epsilon $ that introduces deviation from classical equilibrium behavior.
 
 ---
 
 ### 4.3 Instability Threshold Function
 
-\[
+$$
 \Phi(p, T, \sigma) > \Phi_c \Rightarrow \text{state collapse or transition}
-\]
+$$
 
 Where:
 
-- \(\Phi(p, T, \sigma)\) = combined instability field  
-- \(\Phi_c\) = critical threshold  
+- $\Phi(p, T, \sigma)$ = combined instability field  
+- $\Phi_c$ = critical threshold  
 
 👉 Interpretation:  
 When environmental stress crosses a critical boundary, the system does not change gradually — it undergoes abrupt phase transition or collapse.
@@ -152,9 +152,9 @@ We can think like:
 
 Instead of constant viscosity:
 
-\[
+$$
 V = V(\text{time}, \text{pressure}, \text{internal state})
-\]
+$$
 
 Meaning:
 - it is not fixed  
@@ -211,15 +211,15 @@ But instead:
 
 Instead of fixed physics:
 
-\[
+$$
 \text{state} = f(\text{environment}, \text{internal instability})
-\]
+$$
 
 or
 
-\[
+$$
 \text{universe} = \text{evolving system of phase transitions}
-\]
+$$
 
 ---
 

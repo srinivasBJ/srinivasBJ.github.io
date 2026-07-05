@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
@@ -22,14 +23,16 @@ export default defineConfig({
   ],
 
   markdown: {
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex],
-    shikiConfig: {
-      themes: {
-        light: 'github-light',
-        dark: 'github-dark',
+    processor: unified({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex],
+      shikiConfig: {
+        themes: {
+          light: 'github-light',
+          dark: 'github-dark',
+        },
+        wrap: true,
       },
-      wrap: true,
-    },
+    }),
   },
 });
