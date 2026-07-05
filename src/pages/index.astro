@@ -54,8 +54,8 @@ function getReadingTime(text: string): string {
   <div class="max-w-3xl mx-auto px-6 py-12 md:py-20 space-y-20 animate-fade-in">
     
     <!-- Wordmark header / Intro -->
-    <header class="border-b border-[var(--color-border)] pb-8">
-      <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[var(--color-text)]">
+    <header class="border-b-2 border-[var(--color-gold)] pb-8">
+      <h1 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[var(--color-heading)]">
         srinivasBJ
       </h1>
       <p class="mt-4 text-base md:text-lg text-[var(--color-text-secondary)] font-normal leading-relaxed max-w-2xl">
@@ -157,7 +157,7 @@ function getReadingTime(text: string): string {
                 <span>{new Date(note.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
                 <span class="text-[10px] uppercase tracking-wider px-1 rounded bg-[var(--color-bg-secondary)] border border-[var(--color-border)] text-[var(--color-text-secondary)]">{note.data.category}</span>
               </div>
-              <h3 class="font-serif font-bold text-base text-[var(--color-text)] group-hover:text-[var(--color-accent-primary)] transition-colors">
+              <h3 class="font-display font-bold text-base text-[var(--color-heading)] group-hover:text-[var(--color-accent-primary)] transition-colors">
                 {note.data.title}
               </h3>
             </a>
@@ -200,7 +200,7 @@ function getReadingTime(text: string): string {
     <!-- Reach Out -->
     <section class="space-y-10 pt-4">
       <div>
-        <h2 class="font-serif text-3xl md:text-[2.75rem] lg:text-5xl font-bold tracking-tight text-[var(--color-text)] leading-[1.15]">
+        <h2 class="font-display text-3xl md:text-[2.75rem] lg:text-5xl font-bold tracking-tight text-[var(--color-heading)] leading-[1.15]">
           If you got this far, reach out.
         </h2>
         <p class="mt-4 text-sm md:text-[15px] text-[var(--color-text-secondary)] max-w-md leading-relaxed">
@@ -273,7 +273,7 @@ function getReadingTime(text: string): string {
             <button
               id="contact-submit"
               type="submit"
-              class="px-6 py-2.5 rounded-lg border border-[var(--color-border)] text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border-hover)] transition-all duration-150 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              class="btn-primary px-8 py-3 rounded-lg text-sm font-medium cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Send message
             </button>
