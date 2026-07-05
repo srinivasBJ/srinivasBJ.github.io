@@ -19,13 +19,52 @@ Modern AI-assisted software development has transformed programming into a distr
 
 From a systems engineering perspective, the primary research challenge is no longer simply protecting authentication credentials, but understanding **how computational resources propagate throughout an AI ecosystem**. Every prompt, dependency, tool invocation, and autonomous agent contributes to a larger execution graph whose behavior must remain observable, explainable, and secure.
 
+This research is inspired by a real-world dilemma: developers running simple prompts only to find 50% of their daily token quotas vanished in seconds, without any visibility into where they went. It points to a deeper systemic flaw where background processes (like NPM package checks, redundant dependency downloads, or backdoor sub-requests) consume resources under the developer's identity, subsidizing tier-free exploits and systemic leaks.
+
 The fundamental research question becomes:
 
 > **How can AI infrastructures provide complete computational provenance for token consumption, execution events, and software dependencies while maintaining scalability, security, and operational transparency?**
 
 ---
 
-## 2. AI Runtime Architecture as a Distributed Computational System
+## 2. The Catalyst: A Real-World Token Leak Scenario
+
+This systems architecture was motivated by a critical real-world anomaly observed in distributed coding pipelines:
+
+1. **The Outage Exploit**: During an extended backend service outage (similar to past OpenAI/Codex outages), a system glitch allowed free or tier-restricted users to bypass rate-limiting controls and access maximum-tier LLM models for 2–3 days.
+2. **Paid-Tier Subsidization**: Because the underlying cloud gateway lacked granular resource accounting, the massive token costs incurred by this exploit were absorbed collectively. Paid premium subscribers saw their daily token allocations drain at unprecedented speeds.
+3. **Hidden Background Overhead**: Developers running simple, single-line prompts had up to 50% of their daily quota consumed instantly. Investigation revealed the culprits: background package checkers (like automated NPM queries), dependency resolvers pulling redundant libraries that were already cached/pre-installed, and unmonitored toolchain dependencies calling sub-agents.
+4. **The Need for Traceability**: In a multi-agent, connected pipeline, tokens behave like cash. Without a zero-trust provenance graph attributing every token consumption event back to its triggering process, paid subscribers end up unknowingly financing anomalous traffic, backdoor processes, or platform bugs.
+
+The flowchart below illustrates this leakage and subsidization vector:
+
+```mermaid
+graph TD
+    subgraph Developer Workspace
+        Dev[User Developer Prompt] -->|Trigger| Agent[AI Coding Agent]
+    end
+    
+    subgraph Background Toolchain
+        Agent -->|Checks| NPM[NPM / Dependency Resolvers]
+        Agent -->|Spawns| Scripts[Redundant Pre-install Checks]
+        NPM -->|Compromise / Loop| Leak[Backdoor Compute Leak]
+    end
+
+    subgraph LLM Gateway & Billing
+        Dev -->|Direct Prompt Tokens| Billing[Premium User Quota: -50%]
+        Scripts -->|Unattributed Overhead| Billing
+        Leak -->|Subsidized Free Traffic| Billing
+    end
+
+    classDef danger fill:#ef4444,stroke:#f87171,stroke-width:2px,color:#fff;
+    classDef safe fill:#10b981,stroke:#34d399,stroke-width:2px,color:#fff;
+    class Leak,Scripts danger;
+    class Dev safe;
+```
+
+---
+
+## 3. AI Runtime Architecture as a Distributed Computational System
 
 A modern AI development environment can be abstracted as a distributed execution pipeline composed of multiple interacting subsystems.
 
@@ -50,7 +89,7 @@ Each transition introduces potential risks involving credential exposure, unauth
 
 ---
 
-## 3. Computational Interpretation
+## 4. Computational Interpretation
 
 ### AI Ecosystem as a Distributed Graph
 
@@ -157,7 +196,7 @@ Instead of isolated log entries, execution events collectively form a provenance
 
 ---
 
-## 4. Mathematical Modeling
+## 5. Mathematical Modeling
 
 ### Token Accounting
 
@@ -237,7 +276,7 @@ Higher values correspond to greater confidence in runtime integrity.
 
 ---
 
-## 5. Engineering Applications
+## 6. Engineering Applications
 
 ### AI Agent Security
 
@@ -269,7 +308,7 @@ Runtime provenance graphs significantly improve forensic investigations by recon
 
 ---
 
-## 6. Research Insights (Systems Perspective)
+## 7. Research Insights (Systems Perspective)
 
 ### 1. Token Provenance as a First-Class Computational Primitive
 
@@ -301,7 +340,7 @@ Combining distributed tracing with graph analytics creates opportunities for aut
 
 ---
 
-## 7. Conclusion
+## 8. Conclusion
 
 AI-assisted software engineering fundamentally changes how computational resources are generated, consumed, and secured. Rather than treating inference tokens solely as billing units, future AI infrastructures should model them as traceable computational assets whose origin, execution context, and lifecycle are continuously observable.
 
