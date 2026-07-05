@@ -19,7 +19,7 @@ const categories = [...new Set(activeNotes.map(n => n.data.category))];
       const notes = activeNotes.filter(n => n.data.category === category);
       return (
         <section class="space-y-4">
-          <h2 class="font-display text-xl font-bold border-b border-[var(--color-border)] pb-2 text-[var(--color-heading)]">
+          <h2 class="font-serif text-xl font-bold border-b border-[var(--color-border)] pb-2 text-[var(--color-text)]">
             {category}
           </h2>
           <div class="grid gap-4">
@@ -38,7 +38,7 @@ const categories = [...new Set(activeNotes.map(n => n.data.category))];
                     </div>
                   )}
                 </div>
-                <h3 class="font-display font-bold text-base text-[var(--color-heading)] group-hover:text-[var(--color-accent-primary)] transition-colors">
+                <h3 class="font-serif font-bold text-base text-[var(--color-text)] group-hover:text-[var(--color-accent-primary)] transition-colors">
                   {note.data.title}
                 </h3>
               </a>
