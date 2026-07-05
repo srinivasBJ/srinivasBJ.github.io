@@ -52,14 +52,14 @@ const formattedDate = new Date(frontmatter.date).toLocaleDateString('en-US', {
           {frontmatter.categories.map((cat) => (
             <a
               href={`/blog/categories/${cat}`}
-              class="text-xs font-mono font-medium text-[var(--color-accent-primary)] hover:underline uppercase tracking-wider"
+              class="text-xs font-mono font-medium text-[var(--color-heading)] hover:underline uppercase tracking-wider"
             >
               {cat}
             </a>
           ))}
         </div>
       )}
-      <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[var(--color-text)] leading-tight">
+      <h1 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[var(--color-heading)] leading-tight">
         {frontmatter.title}
       </h1>
       <p class="mt-4 text-base md:text-lg text-[var(--color-text-secondary)] font-normal leading-relaxed">
@@ -67,7 +67,7 @@ const formattedDate = new Date(frontmatter.date).toLocaleDateString('en-US', {
       </p>
 
       <!-- Meta information -->
-      <div class="mt-6 flex flex-wrap items-center gap-4 text-xs font-mono text-[var(--color-text-tertiary)] border-t border-[var(--color-border)] pt-4">
+      <div class="mt-6 flex flex-wrap items-center gap-4 text-xs font-mono text-[var(--color-text-tertiary)] border-t-2 border-[var(--color-gold)] pt-4">
         <time datetime={frontmatter.date.toISOString()}>
           {formattedDate}
         </time>
