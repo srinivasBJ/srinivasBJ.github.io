@@ -3,7 +3,7 @@ title: "AgentTrace: Causal Graph Tracing for Root Cause Analysis in Deployed Mul
 author: "Zhaohui Geoffrey Wang"
 category: "papers"
 description: "An ICLR 2026 Workshop paper outlining a latency-efficient method to reconstruct causal graphs from execution logs without invoking LLMs at debugging time."
-url: ""
+url: "https://arxiv.org/abs/2603.14688"
 tags: ["agentic-ai", "observability", "root-cause-analysis", "causal-tracing", "multi-agent-systems"]
 ---
 

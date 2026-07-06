@@ -3,7 +3,7 @@ title: "AgentGraph: Trace-to-Graph Platform for Interactive Analysis and Robustn
 author: "Zhaohui Geoffrey Wang"
 category: "papers"
 description: "A AAAI 2026 paper introducing a platform to convert agent execution logs into interactive knowledge graphs for root cause analysis."
-url: ""
+url: "https://ojs.aaai.org/index.php/AAAI/article/view/42393"
 tags: ["agentic-ai", "knowledge-graphs", "robustness-testing", "observability"]
 ---
 
