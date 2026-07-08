@@ -3,7 +3,7 @@ title: "MoveAround"
 description: "Mobile-first AI-assisted city exploration platform that generates personalized itineraries, maps hidden gems using PostGIS, renders Google Maps routes with rarity tiers, and integrates food and transit platforms."
 tags: ["react-native", "node.js", "postgresql", "postgis", "google-maps", "llm"]
 featured: true
-timeline: "2025"
+timeline: "2026"
 order: 2
 ---
 
