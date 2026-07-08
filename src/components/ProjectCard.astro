@@ -17,7 +17,7 @@ const isHero = variant === 'hero';
 
 {isHero ? (
   <a href={`/projects/${slug}`} class="block group no-underline">
-    <div class="relative p-8 md:p-10 rounded-2xl bg-[#5844ea] border border-[#4834da] overflow-hidden transition-all duration-300 hover:border-[#3824ca] shadow-md">
+    <div class="relative p-8 md:p-10 rounded-2xl bg-[#5844ea] border border-[#4834da] overflow-hidden transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-[1.015] group-hover:shadow-lg border-white/20">
       <!-- Subtle gradient overlay -->
       <div class="absolute inset-0 bg-gradient-to-br from-[#ffffff]/10 via-transparent to-[#000000]/25 rounded-2xl pointer-events-none"></div>
 
@@ -63,7 +63,7 @@ const isHero = variant === 'hero';
   </a>
 ) : (
   <a href={`/projects/${slug}`} class="block group no-underline">
-    <div class="p-6 md:p-7 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-border-hover)] transition-all duration-200 flex flex-col justify-between h-full no-underline">
+    <div class="p-6 md:p-7 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] flex flex-col justify-between h-full no-underline transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-[1.02] group-hover:shadow-md group-hover:border-[var(--color-border-hover)]">
       <div>
         <div class="flex items-center justify-between gap-2 mb-4">
           <!-- Badge -->
