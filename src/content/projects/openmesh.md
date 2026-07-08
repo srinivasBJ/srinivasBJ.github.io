@@ -4,7 +4,7 @@ description: "Open-source observability and control plane for AI agent ecosystem
 tags: ["python", "fastapi", "react", "postgresql", "opentelemetry"]
 github: "https://github.com/srinivasBJ/OpenMesh"
 featured: true
-timeline: "2024 — Present"
+timeline: "2026"
 order: 1
 ---
 

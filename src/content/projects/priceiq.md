@@ -5,7 +5,7 @@ tags: ["node.js", "react", "postgresql", "redis", "docker"]
 github: "https://github.com/srinivasBJ/Priceiq"
 demo: "https://priceiq-saxo.vercel.app/"
 featured: true
-timeline: "2024"
+timeline: "2025 - 2026"
 order: 3
 ---
 
