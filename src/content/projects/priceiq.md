@@ -3,6 +3,7 @@ title: "PriceIQ"
 description: "Full-stack price intelligence platform for tracking devices, comparing live prices across marketplaces, wishlist management, price alerts, and analytics dashboards."
 tags: ["node.js", "react", "postgresql", "redis", "docker"]
 github: "https://github.com/srinivasBJ/Priceiq"
+demo: "https://priceiq-saxo.vercel.app/"
 featured: true
 timeline: "2024"
 order: 3
@@ -10,7 +11,7 @@ order: 3
 
 ## Overview
 
-[GitHub Repository](https://github.com/srinivasBJ/Priceiq)
+[Live Demo](https://priceiq-saxo.vercel.app/) | [GitHub Repository](https://github.com/srinivasBJ/Priceiq)
 
 PriceIQ is a full-stack price intelligence platform that aggregates pricing data across major marketplaces. It provides real-time price tracking, historical comparison, wishlist alerts, and visual analytics — all in one cohesive dashboard.
 
