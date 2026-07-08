@@ -11,8 +11,6 @@ order: 3
 
 ## Overview
 
-[Live Demo](https://priceiq-saxo.vercel.app/) | [GitHub Repository](https://github.com/srinivasBJ/Priceiq)
-
 PriceIQ is a full-stack price intelligence platform that aggregates pricing data across major marketplaces. It provides real-time price tracking, historical comparison, wishlist alerts, and visual analytics — all in one cohesive dashboard.
 
 ## Architecture
