@@ -200,7 +200,7 @@ function getReadingTime(text: string): string {
         <h2 class="font-serif text-3xl md:text-[2.75rem] lg:text-5xl font-bold tracking-tight text-[var(--color-text)] leading-[1.15]">
           If you got this far, reach out.
         </h2>
-        <p class="mt-4 text-sm md:text-[15px] text-[var(--color-text-secondary)] max-w-md leading-relaxed">
+        <p class="mt-4 text-sm md:text-[15px] text-[var(--color-text-secondary)] max-w-2xl leading-relaxed">
           Open to internships, collaborations, and problems worth solving.
         </p>
       </div>
@@ -265,7 +265,7 @@ function getReadingTime(text: string): string {
               placeholder="What's on your mind?"
               rows="5"
               required
-              class="w-full px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:border-[var(--color-border-hover)] focus:ring-1 focus:ring-[var(--color-border-hover)] transition-colors resize-none"
+              class="w-full px-4 py-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:border-[var(--color-border-hover)] focus:ring-1 focus:ring-[var(--color-border-hover)] transition-colors resize-y"
             ></textarea>
             <button
               id="contact-submit"
@@ -333,6 +333,15 @@ function getReadingTime(text: string): string {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Send message';
               }
+            });
+          }
+
+          // Auto-expanding textarea for longer messages
+          const textarea = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement | null;
+          if (textarea) {
+            textarea.addEventListener('input', function() {
+              this.style.height = 'auto';
+              this.style.height = this.scrollHeight + 'px';
             });
           }
         </script>
