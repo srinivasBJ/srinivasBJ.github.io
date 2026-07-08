@@ -7,10 +7,6 @@ timeline: "2025"
 order: 2
 ---
 
-## Demo & Video Walkthrough
-
-Watch the 6-minute system architecture, features, and data verification walkthrough:
-
 <video controls class="w-full rounded-lg border border-[var(--color-border)] my-6 shadow-md" poster="/images/movearound-platform.png">
   <source src="/videos/movearound-demo.mp4" type="video/mp4" />
   Your browser does not support the video tag.
@@ -18,7 +14,24 @@ Watch the 6-minute system architecture, features, and data verification walkthro
 
 ---
 
-## Interactive Diagrams & Architecture
+## Key Engineering Achievements
+
+### 1. Intent-Based Personalized Discovery
+- **Itinerary Generation**: Architected a mobile-first app generating AI-driven itineraries across 6 preference categories: **Food, Luxury, Street, Shopping, History, and Chill**.
+- **Hidden Gems Exploration**: Surfaces obscure, locally-sourced spots absent from standard maps, cutting average travel planning time by over **80%**.
+- **Personalization Engine**: Developed a context-aware LLM engine adapting dynamically to user demographics, weather constraints, routing paths, and specific traveler interests, improving itinerary relevance by **3×** over generic search queries.
+
+### 2. Biomechanical & Spatial Route Rendering
+- **Google Maps Integration**: Seamless rendering of real-time routes, custom pathing, and interactive place-detail overlays.
+- **Four-Tier Rarity System**: Categorizes discoveries into **Common, Uncommon, Rare, and Legendary** tiers based on local density, core distance, and community signals (Reddit & social data feeds).
+- **PostGIS Geofencing**: Uses spatial databases to index coordinates, calculate distances, and run geo-queries efficiently.
+
+### 3. Integrated Transit & Gamification Plane
+- **Platform Integrations**: Embedded deep-links directly supporting 4 key urban platforms: **Rapido, Swiggy, Zomato, and Ola**, allowing users to book rides or discover food without switching apps.
+- **Engagement Mechanics**: Implemented a Duolingo-style gamification loop including **Experience Points (XP), themed badges, and localized missions** to incentivize user-contributed place discoveries.
+- **Trust & Moderation**: Built a Place Trust Score pipeline calculating reliability indexes based on source confidence, verification proofs, and OCR check protocols.
+
+### 4. Interactive Mind Maps & Architecture Diagrams
 
 <details class="cursor-pointer group border border-[var(--color-border)] rounded-lg p-4 bg-[var(--color-bg-secondary)] my-6">
   <summary class="font-semibold text-base select-none focus:outline-none flex items-center justify-between text-[var(--color-text)]">
@@ -45,22 +58,3 @@ Watch the 6-minute system architecture, features, and data verification walkthro
     </a>
   </div>
 </details>
-
----
-
-## Key Engineering Achievements
-
-### 1. Intent-Based Personalized Discovery
-- **Itinerary Generation**: Architected a mobile-first app generating AI-driven itineraries across 6 preference categories: **Food, Luxury, Street, Shopping, History, and Chill**.
-- **Hidden Gems Exploration**: Surfaces obscure, locally-sourced spots absent from standard maps, cutting average travel planning time by over **80%**.
-- **Personalization Engine**: Developed a context-aware LLM engine adapting dynamically to user demographics, weather constraints, routing paths, and specific traveler interests, improving itinerary relevance by **3×** over generic search queries.
-
-### 2. Biomechanical & Spatial Route Rendering
-- **Google Maps Integration**: Seamless rendering of real-time routes, custom pathing, and interactive place-detail overlays.
-- **Four-Tier Rarity System**: Categorizes discoveries into **Common, Uncommon, Rare, and Legendary** tiers based on local density, core distance, and community signals (Reddit & social data feeds).
-- **PostGIS Geofencing**: Uses spatial databases to index coordinates, calculate distances, and run geo-queries efficiently.
-
-### 3. Integrated Transit & Gamification Plane
-- **Platform Integrations**: Embedded deep-links directly supporting 4 key urban platforms: **Rapido, Swiggy, Zomato, and Ola**, allowing users to book rides or discover food without switching apps.
-- **Engagement Mechanics**: Implemented a Duolingo-style gamification loop including **Experience Points (XP), themed badges, and localized missions** to incentivize user-contributed place discoveries.
-- **Trust & Moderation**: Built a Place Trust Score pipeline calculating reliability indexes based on source confidence, verification proofs, and OCR check protocols.
