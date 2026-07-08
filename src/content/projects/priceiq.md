@@ -5,10 +5,12 @@ tags: ["node.js", "react", "postgresql", "redis", "docker"]
 github: "https://github.com/srinivasBJ/Priceiq"
 featured: true
 timeline: "2024"
-order: 2
+order: 3
 ---
 
 ## Overview
+
+[GitHub Repository](https://github.com/srinivasBJ/Priceiq)
 
 PriceIQ is a full-stack price intelligence platform that aggregates pricing data across major marketplaces. It provides real-time price tracking, historical comparison, wishlist alerts, and visual analytics — all in one cohesive dashboard.
 
