@@ -9,6 +9,7 @@ timeline: "2025 - 2026"
 order: 3
 accent: "#7c3aed"
 logo: "/logos/priceiq.svg"
+hoverImage: "/images/priceiq-dashboard.jpg"
 ---
 
 ## Overview

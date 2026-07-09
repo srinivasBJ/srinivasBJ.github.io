@@ -27,7 +27,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
       <span class="text-[var(--color-border-hover)]">/</span>
       <span>{readingTime}</span>
       {categories && categories.length > 0 && categories.map((cat) => (
-        <span class="uppercase tracking-wider px-1.5 py-0.5 rounded bg-[var(--color-bg-secondary)] border border-[var(--color-border)] text-[var(--color-text-secondary)]">{cat}</span>
+        <span class="uppercase tracking-wider px-1.5 py-0.5 rounded bg-[var(--color-chip-bg)] border border-[var(--color-chip-border)] text-[var(--color-chip-text)]">{cat}</span>
       ))}
     </div>
 

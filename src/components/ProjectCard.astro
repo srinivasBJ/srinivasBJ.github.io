@@ -9,10 +9,11 @@ interface Props {
   github?: string;
   accent?: string;
   logo?: string;
+  hoverImage?: string;
   variant?: 'hero' | 'card';
 }
 
-const { title, description, slug, tags, timeline, featured, github, accent = '#5844ea', logo, variant = 'card' } = Astro.props;
+const { title, description, slug, tags, timeline, featured, github, accent = '#5844ea', logo, hoverImage, variant = 'card' } = Astro.props;
 
 const isHero = variant === 'hero';
 ---
@@ -76,9 +77,13 @@ const isHero = variant === 'hero';
   </a>
 ) : (
   <a href={`/projects/${slug}`} class="block group no-underline h-full">
-    <div class="surface-card overflow-hidden p-6 md:p-7 flex flex-col justify-between h-full no-underline">
+    <div class="surface-card overflow-hidden p-6 md:p-7 flex flex-col justify-between h-full no-underline" style={`--card-accent: ${accent}`}>
       <!-- Accent top rail -->
       <span class="absolute inset-x-0 top-0 h-[2px] opacity-70 group-hover:opacity-100 transition-opacity" style={`background: linear-gradient(90deg, transparent, ${accent}, transparent)`}></span>
+      <!-- Hover reveal — project imagery fades in behind content -->
+      {hoverImage && (
+        <span class="card-bg-image" style={`background-image: url('${hoverImage}')`}></span>
+      )}
       <!-- Hover aurora — accent glow drifts behind content on hover -->
       <span class="card-glow" style={`background: radial-gradient(45% 55% at 78% 12%, ${accent}33, transparent 70%), radial-gradient(40% 50% at 15% 90%, ${accent}1f, transparent 65%);`}></span>
 
