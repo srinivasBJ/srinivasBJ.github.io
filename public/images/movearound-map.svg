@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07090d"/>
+      <stop offset="1" stop-color="#0b111a"/>
+    </linearGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M72 0H0V72" fill="none" stroke="#38bdf8" stroke-opacity="0.09" stroke-width="1"/>
+    </pattern>
+    <pattern id="grid2" width="180" height="180" patternUnits="userSpaceOnUse">
+      <path d="M180 0H0V180" fill="none" stroke="#818cf8" stroke-opacity="0.08" stroke-width="1.5"/>
+    </pattern>
+    <radialGradient id="nebula" cx="0.75" cy="0.2" r="0.7">
+      <stop offset="0" stop-color="#8b5cf6" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="dotGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7dd3fc" stop-opacity="0.9"/>
+      <stop offset="0.4" stop-color="#38bdf8" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <rect width="1200" height="800" fill="url(#nebula)"/>
+
+  <!-- rotated street grids, like a night navigation map -->
+  <g transform="rotate(-14 600 400)">
+    <rect x="-300" y="-300" width="1800" height="1400" fill="url(#grid)"/>
+  </g>
+  <g transform="rotate(23 600 400)">
+    <rect x="-300" y="-300" width="1800" height="1400" fill="url(#grid2)"/>
+  </g>
+
+  <!-- main avenues -->
+  <g stroke-linecap="round" fill="none">
+    <path d="M-40 620 L420 380 L760 470 L1240 210" stroke="#38bdf8" stroke-opacity="0.18" stroke-width="3"/>
+    <path d="M120 -40 L360 300 L300 560 L520 840" stroke="#818cf8" stroke-opacity="0.14" stroke-width="2.5"/>
+    <path d="M-40 260 L520 180 L940 320 L1240 260" stroke="#38bdf8" stroke-opacity="0.10" stroke-width="2"/>
+  </g>
+
+  <!-- active route with glowing node -->
+  <path d="M300 560 L470 430 L640 470 L820 330" fill="none" stroke="#38bdf8" stroke-opacity="0.45" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 10"/>
+  <circle cx="640" cy="470" r="90" fill="url(#dotGlow)"/>
+  <circle cx="640" cy="470" r="7" fill="#bae6fd"/>
+
+  <!-- location markers -->
+  <g fill="#38bdf8" fill-opacity="0.5">
+    <circle cx="470" cy="430" r="4"/>
+    <circle cx="820" cy="330" r="4"/>
+    <circle cx="300" cy="560" r="4"/>
+    <circle cx="1020" cy="540" r="3" fill-opacity="0.3"/>
+    <circle cx="180" cy="220" r="3" fill-opacity="0.3"/>
+  </g>
+
+  <!-- faint code lines, bottom-left -->
+  <g font-family="JetBrains Mono, monospace" font-size="15">
+    <text x="60" y="640" fill="#f59e0b" fill-opacity="0.22">const route = await routeEngine.plan({</text>
+    <text x="60" y="668" fill="#94a3b8" fill-opacity="0.20">  intent: 'hidden-gems', tiers: ['rare','legendary'],</text>
+    <text x="60" y="696" fill="#94a3b8" fill-opacity="0.20">  origin: geo.current(), transit: true,</text>
+    <text x="60" y="724" fill="#2dd4bf" fill-opacity="0.22">}); // PostGIS ST_DWithin + rarity score</text>
+  </g>
+</svg>
