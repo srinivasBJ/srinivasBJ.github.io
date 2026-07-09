@@ -70,12 +70,15 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#0b0a09" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#fcfbf9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#FBF3E4" media="(prefers-color-scheme: light)" />
 
     <!-- Prevent flash of wrong theme -->
     <script is:inline>
       function applyTheme() {
         const theme = (() => {
+          // URL override for previewing a theme: ?theme=light / ?theme=dark
+          const param = new URLSearchParams(window.location.search).get('theme');
+          if (param === 'light' || param === 'dark') return param;
           if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
             return localStorage.getItem('theme');
           }
@@ -264,8 +267,12 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
 
     <ScrollProgress />
 
+    <!-- Ornamental woven strips framing the content (light mode only) -->
+    <div class="pattern-strip pattern-strip-left" aria-hidden="true"></div>
+    <div class="pattern-strip pattern-strip-right" aria-hidden="true"></div>
+
     <!-- Permanent Sidebar (Desktop) -->
-    <aside class="fixed top-0 left-0 bottom-0 w-56 border-r border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-8 z-40 hidden md:block">
+    <aside class="fixed top-0 left-0 bottom-0 w-64 border-r border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-7 py-9 z-40 hidden md:block">
       <Sidebar />
     </aside>
 
@@ -320,7 +327,7 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
     </div>
 
     <!-- Main Content Area -->
-    <div class="md:pl-56 flex-1 min-h-screen flex flex-col">
+    <div class="md:pl-64 flex-1 min-h-screen flex flex-col">
       <main id="main-content" class="flex-1">
         <slot />
       </main>

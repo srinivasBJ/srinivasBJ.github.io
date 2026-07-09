@@ -26,6 +26,8 @@ const gridProjects = sortedProjects.slice(1);
         timeline={heroProject.data.timeline}
         featured={heroProject.data.featured}
         github={heroProject.data.github}
+        accent={heroProject.data.accent}
+        logo={heroProject.data.logo}
         variant="hero"
       />
     )}
@@ -42,6 +44,9 @@ const gridProjects = sortedProjects.slice(1);
             timeline={project.data.timeline}
             featured={project.data.featured}
             github={project.data.github}
+            accent={project.data.accent}
+            logo={project.data.logo}
+            hoverImage={project.data.hoverImage}
             variant="card"
           />
         ))}

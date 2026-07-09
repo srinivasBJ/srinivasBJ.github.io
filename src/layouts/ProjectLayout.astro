@@ -10,6 +10,8 @@ interface Props {
     demo?: string;
     timeline?: string;
     featured?: boolean;
+    accent?: string;
+    logo?: string;
   };
 }
 
@@ -28,16 +30,21 @@ const { frontmatter } = Astro.props;
       </a>
     </div>
 
-    <!-- Project Header -->
+    <!-- Project Header — simple, content-first -->
     <header class="mb-12 border-b border-[var(--color-border)] pb-8">
-      <div class="flex flex-wrap gap-2 mb-4">
-        {frontmatter.tags.map((tag) => (
-          <span class="text-xs font-mono px-2 py-0.5 rounded bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] border border-[var(--color-border)]">
-            {tag}
-          </span>
-        ))}
+      <div class="flex items-start justify-between gap-6 mb-4">
+        <div class="flex flex-wrap gap-2">
+          {frontmatter.tags.map((tag) => (
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] border border-[var(--color-border)]">
+              {tag}
+            </span>
+          ))}
+        </div>
+        {frontmatter.logo && (
+          <img src={frontmatter.logo} alt={`${frontmatter.title} logo`} class="h-8 w-auto object-contain shrink-0 opacity-90" />
+        )}
       </div>
-      <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[var(--color-text)] leading-tight">
+      <h1 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[var(--color-text)] leading-tight">
         {frontmatter.title}
       </h1>
       <p class="mt-4 text-base md:text-lg text-[var(--color-text-secondary)] font-normal leading-relaxed max-w-[65ch]">

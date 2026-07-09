@@ -6,6 +6,7 @@ github: "https://github.com/srinivasBJ/OpenMesh"
 featured: true
 timeline: "2026"
 order: 1
+accent: "#2563eb"
 ---
 
 ## Overview
