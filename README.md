@@ -1,4 +1,4 @@
-# srinivasBJ — Living Notes & Publishing Platform
+Living Notes & Publishing Platform
 
 This repository contains the source code for my permanent personal publishing platform, knowledge archive, and digital garden. Built using **Astro**, **Tailwind CSS v4**, **TypeScript**, and **Decap CMS**, it compiles into a fast, zero-JS, static reader website optimized for hosting on **GitHub Pages**.
 
