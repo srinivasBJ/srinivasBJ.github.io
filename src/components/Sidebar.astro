@@ -24,7 +24,7 @@ function isActive(href: string): boolean {
 ---
 
 <div class="flex flex-col h-full justify-between">
-  <div class="space-y-7">
+  <div class="space-y-9">
     <!-- Wordmark / Logo + Theme Toggle -->
     <div class="flex items-start justify-between gap-4">
       <a href="/" class="group flex items-center gap-2.5 no-underline">
@@ -62,14 +62,14 @@ function isActive(href: string): boolean {
     </div>
 
     <!-- Main Navigation Links -->
-    <nav class="flex flex-col gap-0.5" aria-label="Sidebar navigation">
+    <nav class="flex flex-col gap-1.5" aria-label="Sidebar navigation">
       {navLinks.map((link) => {
         const active = isActive(link.href);
         return (
           <a
             href={link.href}
             class:list={[
-              'relative flex items-center gap-3 pl-3.5 pr-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 no-underline',
+              'relative flex items-center gap-3 pl-4 pr-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 no-underline',
               active
                 ? 'text-[var(--color-text)] bg-[var(--color-surface-hover)]'
                 : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-hover)]',

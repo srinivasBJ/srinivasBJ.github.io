@@ -66,6 +66,11 @@
   --color-surface-elevated: #1a1a22;
   --card-highlight: rgba(255, 255, 255, 0.045); /* top inset sheen */
 
+  /* Badge chips (Article / Lab Note / category tags) */
+  --color-chip-bg: #0d0d11;
+  --color-chip-text: #9c9ca8;
+  --color-chip-border: #1d1d24;
+
   /* Code blocks */
   --color-code-bg: #121218;
   --color-code-text: #f4f4f5;
@@ -83,40 +88,96 @@
    LIGHT MODE (Toggled via class)
    ============================================================ */
 .light {
-  /* Warm palette — saffron, turmeric cream, deep brown */
-  --color-bg: #FBF3E4;
-  --color-bg-secondary: #F5E8CF;
-  --color-bg-tertiary: #EBD9B4;
+  /* Warm saffron light palette — rich saffron orange, deep maroon-brown ink */
+  --color-bg: #F5A94C;
+  --color-bg-secondary: #F09E38;
+  --color-bg-tertiary: #E5922B;
 
-  --color-text: #3B2416;
-  --color-text-secondary: #7A5636;
-  --color-text-tertiary: #B08D5F;
+  --color-text: #47160A;
+  --color-text-secondary: #75330E;
+  --color-text-tertiary: #99551C;
 
-  /* Borders — aged turmeric */
-  --color-border: #E8D3AB;
-  --color-border-hover: #D3B475;
+  /* Borders — burnt orange */
+  --color-border: #DE9333;
+  --color-border-hover: #B96F14;
 
-  --color-accent: #3B2416;
-  --color-accent-hover: #542F14;
-  --color-accent-subtle: #F5E8CF;
-  --color-accent-primary: #C2410C; /* Deep saffron */
-  --color-accent-glow: rgba(217, 119, 6, 0.12);
+  --color-accent: #47160A;
+  --color-accent-hover: #5E200C;
+  --color-accent-subtle: #F09E38;
+  --color-accent-primary: #9E1B07; /* Deep vermilion red */
+  --color-accent-glow: rgba(158, 27, 7, 0.14);
 
-  --color-surface: #FFFBF0;
-  --color-surface-hover: #FBF1DC;
-  --color-surface-elevated: #FFFDF7;
-  --card-highlight: rgba(255, 255, 255, 0.85);
+  --color-surface: #F8B75F;
+  --color-surface-hover: #FAC072;
+  --color-surface-elevated: #FAC276;
+  --card-highlight: rgba(255, 232, 190, 0.55);
 
-  --color-code-bg: #F5E8CF;
-  --color-code-text: #3B2416;
+  /* Badge chips — solid vermilion with cream text (mockup style) */
+  --color-chip-bg: #A61C08;
+  --color-chip-text: #FFE9C4;
+  --color-chip-border: #8A1504;
 
-  --shadow-sm: 0 1px 2px 0 rgb(120 72 12 / 0.06);
-  --shadow-md: 0 4px 12px -2px rgb(120 72 12 / 0.10);
-  --shadow-lg: 0 14px 30px -10px rgb(120 72 12 / 0.16);
+  --color-code-bg: #F3A845;
+  --color-code-text: #47160A;
+
+  --shadow-sm: 0 1px 2px 0 rgb(110 46 4 / 0.10);
+  --shadow-md: 0 4px 12px -2px rgb(110 46 4 / 0.16);
+  --shadow-lg: 0 14px 30px -10px rgb(110 46 4 / 0.24);
 
   /* Traditional serif for headings in light mode */
   --font-serif: 'Martel', Georgia, serif;
   --font-display: 'Martel', Georgia, serif;
+}
+
+/* Light mode — serif intro line on the homepage, like the almanac masthead */
+.light .home-intro {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Ornamental woven strips framing the content area (light mode only) */
+.pattern-strip {
+  display: none;
+}
+
+.light .pattern-strip {
+  display: block;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+  z-index: 25;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='28'><rect width='14' height='28' fill='%23C05A10'/><path d='M7 2L12 14L7 26L2 14Z' fill='%23771A03'/><circle cx='7' cy='14' r='2' fill='%23F2B25C'/></svg>");
+  background-repeat: repeat-y;
+  background-size: 14px 28px;
+  border-left: 1px solid #771A03;
+  border-right: 1px solid #771A03;
+}
+
+.pattern-strip-right { right: 0; }
+.pattern-strip-left { left: 0; display: none !important; }
+
+@media (min-width: 768px) {
+  .light .pattern-strip-left {
+    display: block !important;
+    left: 16rem; /* sits flush against the sidebar */
+  }
+}
+
+/* Light mode cards — subtle woven ribbon along the left inside edge */
+.light .surface-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='28'><rect width='14' height='28' fill='%23C05A10'/><path d='M7 2L12 14L7 26L2 14Z' fill='%23771A03'/><circle cx='7' cy='14' r='2' fill='%23F2B25C'/></svg>");
+  background-size: 6px 12px;
+  opacity: 0.5;
 }
 
 /* Light mode ambience — warm sunrise glow instead of cool violet */
@@ -203,8 +264,34 @@ body::before {
 
 .surface-card:hover {
   transform: translateY(-3px);
-  border-color: var(--color-border-hover);
-  box-shadow: inset 0 1px 0 0 var(--card-highlight), var(--shadow-lg);
+  border-color: color-mix(in srgb, var(--card-accent, var(--color-border-hover)) 45%, var(--color-border-hover));
+  box-shadow: inset 0 1px 0 0 var(--card-highlight), var(--shadow-lg),
+    0 0 32px -8px var(--card-accent, transparent);
+}
+
+/* Hover image reveal — project imagery fades in behind card content,
+   masked so the text side stays readable */
+.card-bg-image {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 0.5s ease, transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(100deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.55) 45%, #000 100%);
+  mask-image: linear-gradient(100deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.55) 45%, #000 100%);
+}
+
+.group:hover .card-bg-image {
+  opacity: 0.38;
+  transform: scale(1.02);
+}
+
+.light .group:hover .card-bg-image {
+  opacity: 0.2;
 }
 
 /* Animated aurora sheen for feature banners (project hero, etc.) */
