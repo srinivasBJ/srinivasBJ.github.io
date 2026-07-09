@@ -1,16 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Martel:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 /* ============================================================
    DESIGN SYSTEM — Personal Publishing Platform
    ============================================================
-   Lora (Serif headers) · Inter (Sans body) · Stone neutrals
+   Space Grotesk (Display headers) · Inter (Sans body) · Cool near-black
    ============================================================ */
 
 /* --- Tailwind v4 Theme Extension --- */
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-serif: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
 
   --color-accent-50: #f5f3ff;
@@ -38,39 +39,41 @@
    CSS CUSTOM PROPERTIES — Light Mode (Default)
    ============================================================ */
 :root {
-  /* Background — Premium deep dark */
-  --color-bg: #090909;
-  --color-bg-secondary: #121212;
-  --color-bg-tertiary: #1a1a1a;
+  /* Background — Premium cool near-black with subtle depth */
+  --color-bg: #08080b;
+  --color-bg-secondary: #0d0d11;
+  --color-bg-tertiary: #16161c;
 
-  /* Text — Zinc tones */
-  --color-text: #f4f4f5;
-  --color-text-secondary: #a1a1aa;
-  --color-text-tertiary: #52525b;
+  /* Text — Cool zinc tones, higher-contrast primary */
+  --color-text: #f6f6f8;
+  --color-text-secondary: #9c9ca8;
+  --color-text-tertiary: #5c5c68;
 
-  /* Borders — Sleek charcoal */
-  --color-border: #1c1c1f;
-  --color-border-hover: #2e2e33;
+  /* Borders — Sleek charcoal, slightly cool */
+  --color-border: #1d1d24;
+  --color-border-hover: #30303b;
 
   /* Accent */
   --color-accent: #ffffff;
   --color-accent-hover: #f4f4f5;
-  --color-accent-subtle: #18181b;
-  --color-accent-primary: #8b5cf6; /* Vibrant violet */
+  --color-accent-subtle: #16161c;
+  --color-accent-primary: #a78bfa; /* Signature violet */
+  --color-accent-glow: rgba(139, 92, 246, 0.14);
 
-  /* Surface */
-  --color-surface: #121212;
-  --color-surface-hover: #161616;
-  --color-surface-elevated: #1a1a1a;
+  /* Surface — layered elevation for premium card depth */
+  --color-surface: #0f0f14;
+  --color-surface-hover: #16161d;
+  --color-surface-elevated: #1a1a22;
+  --card-highlight: rgba(255, 255, 255, 0.045); /* top inset sheen */
 
   /* Code blocks */
-  --color-code-bg: #18181b;
+  --color-code-bg: #121218;
   --color-code-text: #f4f4f5;
 
-  /* Shadows */
+  /* Shadows — deeper, softer for real elevation */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
+  --shadow-md: 0 6px 20px -6px rgb(0 0 0 / 0.55);
+  --shadow-lg: 0 18px 40px -12px rgb(0 0 0 / 0.6);
 
   /* Scroll progress */
   --scroll-progress: 0%;
@@ -80,34 +83,65 @@
    LIGHT MODE (Toggled via class)
    ============================================================ */
 .light {
-  /* Warm cream backgrounds for eye protection in light mode */
-  --color-bg: #FDF8EE;
-  --color-bg-secondary: #F5EDD9;
-  --color-bg-tertiary: #E0D5C1;
+  /* Warm palette — saffron, turmeric cream, deep brown */
+  --color-bg: #FBF3E4;
+  --color-bg-secondary: #F5E8CF;
+  --color-bg-tertiary: #EBD9B4;
 
-  --color-text: #0f172a;
-  --color-text-secondary: #475569;
-  --color-text-tertiary: #94a3b8;
+  --color-text: #3B2416;
+  --color-text-secondary: #7A5636;
+  --color-text-tertiary: #B08D5F;
 
-  /* Keep borders matching the cream styling so they blend well */
-  --color-border: #E0D5C1;
-  --color-border-hover: #C9BC9E;
+  /* Borders — aged turmeric */
+  --color-border: #E8D3AB;
+  --color-border-hover: #D3B475;
 
-  --color-accent: #0f172a;
-  --color-accent-hover: #1e293b;
-  --color-accent-subtle: #F5EDD9;
-  --color-accent-primary: #6366f1;
+  --color-accent: #3B2416;
+  --color-accent-hover: #542F14;
+  --color-accent-subtle: #F5E8CF;
+  --color-accent-primary: #C2410C; /* Deep saffron */
+  --color-accent-glow: rgba(217, 119, 6, 0.12);
 
-  --color-surface: #FFFFFF;
-  --color-surface-hover: #FDF8EE;
-  --color-surface-elevated: #FFFFFF;
+  --color-surface: #FFFBF0;
+  --color-surface-hover: #FBF1DC;
+  --color-surface-elevated: #FFFDF7;
+  --card-highlight: rgba(255, 255, 255, 0.85);
 
-  --color-code-bg: #F5EDD9;
-  --color-code-text: #0f172a;
+  --color-code-bg: #F5E8CF;
+  --color-code-text: #3B2416;
 
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.02);
-  --shadow-md: 0 2px 4px 0 rgb(0 0 0 / 0.02), 0 1px 2px 0 rgb(0 0 0 / 0.02);
-  --shadow-lg: 0 4px 8px 0 rgb(0 0 0 / 0.02);
+  --shadow-sm: 0 1px 2px 0 rgb(120 72 12 / 0.06);
+  --shadow-md: 0 4px 12px -2px rgb(120 72 12 / 0.10);
+  --shadow-lg: 0 14px 30px -10px rgb(120 72 12 / 0.16);
+
+  /* Traditional serif for headings in light mode */
+  --font-serif: 'Martel', Georgia, serif;
+  --font-display: 'Martel', Georgia, serif;
+}
+
+/* Light mode ambience — warm sunrise glow instead of cool violet */
+.light body::before {
+  background:
+    radial-gradient(60rem 40rem at 15% -8%, rgba(234, 88, 12, 0.07), transparent 60%),
+    radial-gradient(50rem 40rem at 100% 0%, rgba(202, 138, 4, 0.06), transparent 55%);
+}
+
+/* Silk strip — traditional saffron border band across the top */
+.light body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 9998;
+  pointer-events: none;
+  background: linear-gradient(90deg, #7C2D12, #C2410C 18%, #F59E0B 50%, #C2410C 82%, #7C2D12);
+}
+
+/* Light mode selection — warm amber */
+.light ::selection {
+  background-color: rgba(217, 119, 6, 0.25);
 }
 
 /* ============================================================
@@ -133,11 +167,154 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.2s ease, color 0.2s ease;
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+/* Ambient depth — a soft signature glow anchored top, fixed behind content */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 40rem at 15% -8%, var(--color-accent-glow), transparent 60%),
+    radial-gradient(50rem 40rem at 100% 0%, rgba(56, 189, 248, 0.05), transparent 55%);
 }
 
 ::selection {
-  background-color: rgba(139, 92, 246, 0.3);
+  background-color: rgba(167, 139, 250, 0.28);
   color: inherit;
+}
+
+/* ============================================================
+   PREMIUM CARD / SURFACE SYSTEM
+   ============================================================ */
+.surface-card {
+  position: relative;
+  background:
+    linear-gradient(180deg, var(--color-surface-elevated), var(--color-surface));
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 0 var(--card-highlight), var(--shadow-sm);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.surface-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-border-hover);
+  box-shadow: inset 0 1px 0 0 var(--card-highlight), var(--shadow-lg);
+}
+
+/* Animated aurora sheen for feature banners (project hero, etc.) */
+@keyframes aurora-drift {
+  0%   { transform: translate3d(-8%, -6%, 0) scale(1.05); }
+  50%  { transform: translate3d(8%, 6%, 0) scale(1.15); }
+  100% { transform: translate3d(-8%, -6%, 0) scale(1.05); }
+}
+
+@keyframes sheen-sweep {
+  0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+  20%  { opacity: 0.5; }
+  60%  { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+  100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+}
+
+.banner-aurora {
+  position: absolute;
+  inset: -40%;
+  pointer-events: none;
+  background:
+    radial-gradient(35% 45% at 25% 30%, rgba(255, 255, 255, 0.22), transparent 60%),
+    radial-gradient(40% 50% at 75% 70%, rgba(0, 0, 0, 0.25), transparent 60%);
+  mix-blend-mode: soft-light;
+  animation: aurora-drift 14s ease-in-out infinite;
+}
+
+.banner-sheen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 45%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  animation: sheen-sweep 6.5s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner-aurora, .banner-sheen { animation: none; }
+}
+
+/* Hover aurora — accent glow that fades in and drifts on card hover */
+.card-glow {
+  position: absolute;
+  inset: -30%;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.group:hover .card-glow {
+  opacity: 1;
+  animation: aurora-drift 8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .card-glow { animation: none; }
+}
+
+/* Miro-style dot grid — subtle "canvas layer" behind the homepage band */
+.dot-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(circle at center, var(--dot-color, rgba(255, 255, 255, 0.06)) 1px, transparent 1.6px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(120% 80% at 50% 0%, #000 35%, transparent 85%);
+  mask-image: radial-gradient(120% 80% at 50% 0%, #000 35%, transparent 85%);
+}
+
+.light .dot-grid {
+  --dot-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Lab dashboard rows — soft, low-friction, not boxy */
+.lab-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.85rem 0.75rem 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.lab-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 0;
+  width: 2px;
+  border-radius: 999px;
+  background: var(--color-accent-primary);
+  transform: translateY(-50%);
+  transition: height 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lab-row:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-border);
+}
+
+.lab-row:hover::before {
+  height: 55%;
 }
 
 /* ============================================================
@@ -168,10 +345,10 @@ body {
 .prose h2,
 .prose h3,
 .prose h4 {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   color: var(--color-text);
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .prose h1 {
@@ -239,11 +416,11 @@ body {
 
 .prose blockquote {
   margin: 2.5rem 0;
-  padding-left: 1.5rem;
-  border-left: 3px solid var(--color-border-hover);
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  border-left: 2px solid var(--color-accent-primary);
   color: var(--color-text-secondary);
   font-style: italic;
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.125rem;
   line-height: 1.8;
 }

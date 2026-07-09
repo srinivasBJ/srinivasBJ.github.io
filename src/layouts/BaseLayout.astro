@@ -70,12 +70,15 @@ const fullTitle = title === siteName ? siteName : `${title} — ${siteName}`;
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#0b0a09" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#fcfbf9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#FBF3E4" media="(prefers-color-scheme: light)" />
 
     <!-- Prevent flash of wrong theme -->
     <script is:inline>
       function applyTheme() {
         const theme = (() => {
+          // URL override for previewing a theme: ?theme=light / ?theme=dark
+          const param = new URLSearchParams(window.location.search).get('theme');
+          if (param === 'light' || param === 'dark') return param;
           if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
             return localStorage.getItem('theme');
           }

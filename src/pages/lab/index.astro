@@ -8,39 +8,63 @@ const activeNotes = labNotes
 
 // Group by category for an organized dashboard feel
 const categories = [...new Set(activeNotes.map(n => n.data.category))];
+
+// Category → dot color (soft, cohesive palette)
+const categoryColor: Record<string, string> = {
+  Algorithms: '#a78bfa',
+  Economics: '#34d399',
+  Linux: '#38bdf8',
+  Research: '#f472b6',
+  Experiments: '#fbbf24',
+  Ideas: '#c084fc',
+  Thoughts: '#94a3b8',
+};
+const dotFor = (c: string) => categoryColor[c] ?? '#a78bfa';
 ---
 
 <PageLayout
   title="The Lab"
   description="My digital garden — lightweight notes, Linux setup logs, ChatGPT logs, AWS configurations, and quick thoughts."
 >
-  <div class="space-y-12">
+  <div class="space-y-10">
     {categories.map(category => {
       const notes = activeNotes.filter(n => n.data.category === category);
+      const color = dotFor(category);
       return (
-        <section class="space-y-4">
-          <h2 class="font-serif text-xl font-bold border-b border-[var(--color-border)] pb-2 text-[var(--color-text)]">
-            {category}
-          </h2>
-          <div class="grid gap-4">
+        <section class="space-y-1">
+          <div class="flex items-center gap-2.5 mb-2 px-1">
+            <span class="w-2 h-2 rounded-full" style={`background:${color}; box-shadow:0 0 10px ${color}80`}></span>
+            <h2 class="font-display text-sm font-semibold tracking-wide uppercase text-[var(--color-text-secondary)]">
+              {category}
+            </h2>
+            <span class="text-[11px] font-mono text-[var(--color-text-tertiary)]">{notes.length}</span>
+            <span class="flex-1 h-px bg-[var(--color-border)]"></span>
+          </div>
+
+          <div class="flex flex-col">
             {notes.map(note => (
-              <a
-                href={`/lab/${note.id}`}
-                class="p-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-border-hover)] transition-all duration-150 group block"
-              >
-                <div class="flex items-center justify-between text-xs font-mono text-[var(--color-text-tertiary)] mb-2">
-                  <span>{new Date(note.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
-                  {note.data.tags && note.data.tags.length > 0 && (
-                    <div class="flex gap-1.5">
-                      {note.data.tags.slice(0, 2).map(t => (
-                        <span>#{t}</span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <h3 class="font-serif font-bold text-base text-[var(--color-text)] group-hover:text-[var(--color-accent-primary)] transition-colors">
+              <a href={`/lab/${note.id}`} class="lab-row group no-underline">
+                <span class="w-1.5 h-1.5 rounded-full shrink-0 opacity-70 group-hover:opacity-100 transition-opacity" style={`background:${color}`}></span>
+
+                <h3 class="font-display font-medium text-[15px] text-[var(--color-text)] group-hover:text-[var(--color-accent-primary)] transition-colors truncate">
                   {note.data.title}
                 </h3>
+
+                {note.data.tags && note.data.tags.length > 0 && (
+                  <div class="hidden sm:flex gap-1.5 shrink-0">
+                    {note.data.tags.slice(0, 2).map(t => (
+                      <span class="text-[10px] font-mono text-[var(--color-text-tertiary)]">#{t}</span>
+                    ))}
+                  </div>
+                )}
+
+                <span class="ml-auto text-[11px] font-mono text-[var(--color-text-tertiary)] shrink-0">
+                  {new Date(note.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                </span>
+
+                <svg class="w-3.5 h-3.5 shrink-0 text-[var(--color-text-tertiary)] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
               </a>
             ))}
           </div>

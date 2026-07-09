@@ -7,6 +7,8 @@ demo: "https://priceiq-saxo.vercel.app/"
 featured: true
 timeline: "2025 - 2026"
 order: 3
+accent: "#7c3aed"
+logo: "/logos/priceiq.svg"
 ---
 
 ## Overview

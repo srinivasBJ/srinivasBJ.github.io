@@ -27,6 +27,8 @@ const projects = defineCollection({
     featured: z.boolean().default(false),
     timeline: z.string().default(''),
     order: z.number().default(0),
+    accent: z.string().default('#5844ea'), // banner / brand color (hex)
+    logo: z.string().optional(), // path to transparent logo mark
   }),
 });
 
