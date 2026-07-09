@@ -5,6 +5,8 @@ tags: ["react-native", "node.js", "postgresql", "postgis", "google-maps", "llm"]
 featured: true
 timeline: "2026"
 order: 2
+accent: "#0891b2"
+logo: "/logos/movearound.svg"
 ---
 
 <video controls class="w-full rounded-lg border border-[var(--color-border)] my-6 shadow-md" poster="/images/movearound-platform.png">

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="PriceIQ logo">
+  <defs>
+    <linearGradient id="piq-g" x1="6" y1="6" x2="44" y2="42" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c4b5fd"/>
+      <stop offset="1" stop-color="#6d28d9"/>
+    </linearGradient>
+  </defs>
+  <!-- price tag -->
+  <path d="M6 19.5V8.5A2.5 2.5 0 0 1 8.5 6h11l22.5 22.5a2.5 2.5 0 0 1 0 3.5l-9 9a2.5 2.5 0 0 1-3.5 0L6 19.5Z" stroke="url(#piq-g)" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="14.5" cy="14.5" r="2.75" fill="url(#piq-g)"/>
+  <!-- upward trend spark -->
+  <path d="M16 31l6.5-6.5 4.5 4.5 8.5-8.5" stroke="url(#piq-g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M30.5 20.5h5v5" stroke="url(#piq-g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
